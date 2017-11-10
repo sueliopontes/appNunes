@@ -7,7 +7,6 @@ var options = {
 
 var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://localhost:5432/startrek'; // startrek is an example database name
-//var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
 var db = pgp(connectionString);
 
 
@@ -15,14 +14,14 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getAllLocatarios(req, res, next) {
-  db.any('SELECT * FROM locatario')
+function getAllStarships(req, res, next) {
+  db.any('SELECT * FROM starships')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all locatário'
+          message: 'Retrieved all starships'
         });
     })
     .catch(function (err) {
@@ -30,15 +29,15 @@ function getAllLocatarios(req, res, next) {
     });
 }
 
-function getLocatario(req, res, next) {
+function getStarship(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM locatario WHERE id = $1', id)
+  db.one('SELECT * FROM starships WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one locarario'
+          message: 'Retrieved one starship'
         });
     })
     .catch(function (err) {
@@ -46,17 +45,16 @@ function getLocatario(req, res, next) {
     });
 }
 
-function createLocatario(req, res, next) {
+function createStarship(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
-
-  db.none('INSERT INTO public.locatario(nome, cpf, rg, emissorrg, ufrg, sexo, naturalidade, nomepai, nomemae)' +
-  'VALUES (${nome}, ${cpf}, ${rg}, ${emissorRg}, ${ufRg}, ${sexo}, ${naturalidade}, ${nomePai}, ${nomeMae})',
-  req.body)
+  db.none('INSERT INTO starships(name, registry, affiliation, launched, class, captain)' +
+      'values(${name}, ${registry}, ${affiliation}, ${launched}, ${class}, ${captain})',
+    req.body)
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Inserted one locatario'
+          message: 'Inserted one starship'
         });
     })
     .catch(function (err) {
@@ -64,14 +62,14 @@ function createLocatario(req, res, next) {
     });
 }
 
-function updatelocatario(req, res, next) {
-  db.none('UPDATE public.locatario SET nome=$1, cpf=$2, rg=$3, emissorRg=$4, ufRg=$5, sexo=$6, naturalidade=$7, nomePai=$8, nomeMae=$9 where id=$10',
-    [req.body.nome, req.body.cpf, req.body.rg,req.body.emissorRg,req.body.rgUF, parseInt(req.body.sexo), req.body.naturalidade,req.body.nomePai,req.body.nomeMae, parseInt(req.params.id)])
+function updateStarship(req, res, next) {
+  db.none('UPDATE starships SET name=$1, registry=$2, affiliation=$3, launched=$4, class=$5, captain=$6 where id=$7',
+    [req.body.name, req.body.registry, req.body.affiliation, parseInt(req.body.launched), req.body.class, parseInt(req.params.id)])
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Updated locatario'
+          message: 'Updated starship'
         });
     })
     .catch(function (err) {
@@ -79,15 +77,15 @@ function updatelocatario(req, res, next) {
     });
 }
 
-function removeLocatario(req, res, next) {
+function removeStarship(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.locatario WHERE id = $1', id)
+  db.result('DELETE FROM starships WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} locarario'
+          message: 'Removed ${result.rowCount} starships'
         });
       /* jshint ignore:end */
     })
@@ -102,9 +100,9 @@ function removeLocatario(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllLocatarios: getAllLocatarios,
-    getLocatario: getLocatario,
-    createLocatario: createLocatario,
-    updateLocatario: updateLocatario,
-    removeLocatario: removeLocatario
+    getAllStarships: getAllStarships,
+    getStarship: getStarship,
+    createStarship: createStarship,
+    updateStarship: updateStarship,
+    removeStarship: removeStarship
 };
