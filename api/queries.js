@@ -103,7 +103,7 @@ function removeLocatario(req, res, next) {
 module.exports = {
     getAllLocatarios: getAllLocatarios,
     getLocatario: getLocatario,
-    createLocaratio: createLocaratio,
-    updateLocaratio: updateLocaratio,
-    removeLocaratio: removeLocaratio
+    createLocatario: createLocatario,
+    updateLocatario: updateLocatario,
+    removeLocatario: removeLocatario
 };

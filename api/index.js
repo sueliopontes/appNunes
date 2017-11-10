@@ -18,10 +18,10 @@ router.get('/', function(req, res, next) {
 
 var db = require('./queries');
 
-router.get('/api/starships', db.getAllStarships);
-router.get('/api/starships/:id', db.getStarship);
-router.post('/api/starships', db.createStarship);
-router.put('/api/starships/:id', db.updateStarship);
-router.delete('/api/starships/:id', db.removeStarship);
+router.get('/api/Locatario', db.getAllLocatarios);
+router.get('/api/Locatario/:id', db.getLocatario);
+router.post('/api/Locatario', db.createLocatario);
+router.put('/api/Locatario/:id', db.updateLocatario);
+router.delete('/api/Locatario/:id', db.removeLocatario);
 
 module.exports = router;
