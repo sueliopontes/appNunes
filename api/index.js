@@ -18,10 +18,10 @@ router.get('/', function(req, res, next) {
 
 var db = require('./queries');
 
-router.get('/api/Locatario', db.getAllLocatarios);
-router.get('/api/Locatario/:id', db.getLocatario);
-router.post('/api/Locatario', db.createLocatario);
-router.put('/api/Locatario/:id', db.updateLocatario);
-router.delete('/api/Locatario/:id', db.removeLocatario);
+router.get('/api/locatario', db.getAllLocatarios);
+router.get('/api/locatario/:id', db.getLocatario);
+router.post('/api/locatario', db.createLocatario);
+router.put('/api/locatario/:id', db.updateLocatario);
+router.delete('/api/locatario/:id', db.removeLocatario);
 
 module.exports = router;
