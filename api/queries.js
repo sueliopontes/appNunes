@@ -34,7 +34,11 @@ function getAllLocatarios(req, res, next) {
   db.any('SELECT * FROM locatario')
     .then(function (data) {
       res.status(200)
-        .json({data});
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all locatário'
+        });
     })
     .catch(function (err) {
       return next(err);
@@ -61,8 +65,8 @@ function getLocatario(req, res, next) {
 function createLocatario(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.locatario(nome, dataNascimento,cpf, rg, emissorRg, ufRg, sexo, naturalidade, nomePai, nomeMae)' +
-  'VALUES (${nome}, ${dataNascimento}, ${cpf}, ${rg}, ${emissorRg}, ${ufRg}, ${sexo}, ${naturalidade}, ${nomePai}, ${nomeMae})',
+  db.none('INSERT INTO public.locatario(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae)' +
+  'VALUES (${nome}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae})',
   req.body)
     .then(function () {
       res.status(200)
@@ -77,8 +81,8 @@ function createLocatario(req, res, next) {
 }
 
 function updateLocatario(req, res, next) {
-  db.none('UPDATE public.locatario SET nome=$1, dataNascimento=$11,cpf=$2, rg=$3, emissorRg=$4, ufRg=$5, sexo=$6, naturalidade=$7, nomePai=$8, nomeMae=$9 where id=$10',
-    [req.body.nome, req.body.cpf, req.body.rg,req.body.emissorRg,req.body.rgUF, parseInt(req.body.sexo), req.body.naturalidade,req.body.nomePai,req.body.nomeMae, parseInt(req.params.id),req.body.dataNascimento])
+  db.none('UPDATE public.locatario SET nome=$1, nascimento=$11,cpf=$2, rg=$3, emissor=$4, uf=$5, sexo=$6, naturalidade=$7, pai=$8, mae=$9 where id=$10',
+    [req.body.nome, req.body.cpf, req.body.rg,req.body.emissor,req.body.uf, parseInt(req.body.sexo), req.body.naturalidade,req.body.pai,req.body.mae, parseInt(req.params.id),req.body.nascimento])
     .then(function () {
       res.status(200)
         .json({
