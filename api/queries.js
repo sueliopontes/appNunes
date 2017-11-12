@@ -49,8 +49,8 @@ function getLocatario(req, res, next) {
 function createLocatario(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.locatario(nome, cpf, rg, emissorrg, ufrg, sexo, naturalidade, nomepai, nomemae)' +
-  'VALUES (${nome}, ${cpf}, ${rg}, ${emissorRg}, ${ufRg}, ${sexo}, ${naturalidade}, ${nomePai}, ${nomeMae})',
+  db.none('INSERT INTO public.locatario(nome, dataNascimento,cpf, rg, emissorrg, ufrg, sexo, naturalidade, nomepai, nomemae)' +
+  'VALUES (${nome}, ${dataNascimento}, ${cpf}, ${rg}, ${emissorRg}, ${ufRg}, ${sexo}, ${naturalidade}, ${nomePai}, ${nomeMae})',
   req.body)
     .then(function () {
       res.status(200)
@@ -65,7 +65,7 @@ function createLocatario(req, res, next) {
 }
 
 function updateLocatario(req, res, next) {
-  db.none('UPDATE public.locatario SET nome=$1, cpf=$2, rg=$3, emissorRg=$4, ufRg=$5, sexo=$6, naturalidade=$7, nomePai=$8, nomeMae=$9 where id=$10',
+  db.none('UPDATE public.locatario SET nome=$1, dataNascimento=$11,cpf=$2, rg=$3, emissorRg=$4, ufRg=$5, sexo=$6, naturalidade=$7, nomePai=$8, nomeMae=$9 where id=$10',
     [req.body.nome, req.body.cpf, req.body.rg,req.body.emissorRg,req.body.rgUF, parseInt(req.body.sexo), req.body.naturalidade,req.body.nomePai,req.body.nomeMae, parseInt(req.params.id)])
     .then(function () {
       res.status(200)
