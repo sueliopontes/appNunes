@@ -14,7 +14,7 @@ var db = pgp(connectionString);
 /////////////////////
 // Query Functions
 /////////////////////
-
+/*
 function getAllLocatarios(req, res, next) {
   db.any('SELECT * FROM locatario')
     .then(function (data) {
@@ -29,6 +29,18 @@ function getAllLocatarios(req, res, next) {
       return next(err);
     });
 }
+*/
+function getAllLocatarios(req, res, next) {
+  db.any('SELECT * FROM locatario')
+    .then(function (data) {
+      res.status(200)
+        .json({data});
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 
 function getLocatario(req, res, next) {
   var id = parseInt(req.params.id);
