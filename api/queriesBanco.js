@@ -45,7 +45,7 @@ function getBanco(req, res, next) {
 function createBanco(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.referencia_bancaria(banco_numero,banco_nome,banco_agencia, banco_conta,banco_data_abertura)' +
+  db.none('INSERT INTO public.banco(banco_numero,banco_nome,banco_agencia, banco_conta,banco_data_abertura)' +
   'VALUES (${banco_numero}, ${banco_nome}, ${banco_agencia}, ${banco_conta},${banco_data_abertura})',
   req.body)
     .then(function () {
@@ -61,7 +61,7 @@ function createBanco(req, res, next) {
 }
 
 function updateBanco(req, res, next) {
-  db.none('UPDATE public.referencia_bancaria SET banco_numero=$1, banco_nome=$2, banco_agencia=$3,banco_conta=$4,banco_data_abertura=$5',
+  db.none('UPDATE public.banco SET banco_numero=$1, banco_nome=$2, banco_agencia=$3,banco_conta=$4,banco_data_abertura=$5',
     [req.body.banco_numero, req.body.banco_nome, req.body.banco_agencia,req.body.banco_conta,req.body.banco_data_abertura,parseInt(req.params.id)])
     .then(function () {
       res.status(200)

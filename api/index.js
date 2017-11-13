@@ -66,13 +66,13 @@ router.post('/api/rc', db6.createRC);
 router.put('/api/rc/:id', db6.updateRC);
 router.delete('/api/rc/:id', db6.removeRC);
 
-var db7 = require('./queriesEmpresa');
+var db7 = require('./queriesOcupacao');
 
-router.get('/api/empresa', db7.getAllEmpresas);
-router.get('/api/empresa/:id', db7.getEmpresa);
-router.post('/api/empresa', db7.createEmpresa);
-router.put('/api/empresa/:id', db7.updateEmpresa);
-router.delete('/api/empresa/:id', db7.removeEmpresa);
+router.get('/api/ocupacao', db7.getAllOcupacoes);
+router.get('/api/ocupacao/:id', db7.getOcupacao);
+router.post('/api/ocupacao', db7.createOcupacao);
+router.put('/api/ocupacao/:id', db7.updateOcupacao);
+router.delete('/api/ocupacao/:id', db7.removeOcupacao);
 
 
 module.exports = router;

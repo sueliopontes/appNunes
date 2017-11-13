@@ -15,14 +15,14 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getAllEmpresas(req, res, next) {
-  db.any('SELECT * FROM empresa')
+function getAllOcupacoes(req, res, next) {
+  db.any('SELECT * FROM ocupacao')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all Empresa'
+          message: 'Retrieved all Ocupacao'
         });
     })
     .catch(function (err) {
@@ -31,15 +31,15 @@ function getAllEmpresas(req, res, next) {
 }
 
 
-function getEmpresa(req, res, next) {
+function getOcupacao(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM empresa WHERE id = $1', id)
+  db.one('SELECT * FROM ocupacao WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one Empresa'
+          message: 'Retrieved one Ocupacao'
         });
     })
     .catch(function (err) {
@@ -47,17 +47,17 @@ function getEmpresa(req, res, next) {
     });
 }
 
-function createEmpresa(req, res, next) {
+function createOcupacao(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.empresa(nome,cnpj,contato,endereco,admissao,salario,ocupacao,rendas)' +
-  'VALUES (${nome}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas})',
+  db.none('INSERT INTO public.ocupacao(empresa,cnpj,contato,endereco,admissao,salario,ocupacao,rendas)' +
+  'VALUES (${empresa}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas})',
   req.body)
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Inserted one Empresa'
+          message: 'Inserted one Ocupacao'
         });
     })
     .catch(function (err) {
@@ -65,14 +65,14 @@ function createEmpresa(req, res, next) {
     });
 }
 
-function updateEmpresa(req, res, next) {
-  db.none('UPDATE public.empresa SET nome=$1, cnpj=$2, contato=$3, endereco=$4, admissao=$5, salario=$6, ocupacao=$7, rendas=$7',
-    [req.body.nome, req.body.cnpj, req.body.contato,req.body.endereco,req.body.admissao,req.body.salario,req.body.ocupacao,req.body.rendas,parseInt(req.params.id)])
+function updateOcupacao(req, res, next) {
+  db.none('UPDATE public.ocupacao SET empresa=$1, cnpj=$2, contato=$3, endereco=$4, admissao=$5, salario=$6, ocupacao=$7, rendas=$7',
+    [req.body.empresa, req.body.cnpj, req.body.contato,req.body.endereco,req.body.admissao,req.body.salario,req.body.ocupacao,req.body.rendas,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Updated Empresa'
+          message: 'Updated Ocupacao'
         });
     })
     .catch(function (err) {
@@ -80,15 +80,15 @@ function updateEmpresa(req, res, next) {
     });
 }
 
-function removeEmpresa(req, res, next) {
+function removeOcupacao(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.empresa WHERE id = $1', id)
+  db.result('DELETE FROM public.ocupacao WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} Empresa'
+          message: 'Removed ${result.rowCount} Ocupacao'
         });
       /* jshint ignore:end */
     })
@@ -97,15 +97,15 @@ function removeEmpresa(req, res, next) {
     });
 }
 
-function removeEmpresa(req, res, next) {
+function removeOcupacao(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.empresa WHERE id = $1', id)
+  db.result('DELETE FROM public.ocupacao WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} Empresa'
+          message: 'Removed ${result.rowCount} Ocupacao'
         });
       /* jshint ignore:end */
     })
@@ -120,9 +120,9 @@ function removeEmpresa(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllEmpresas: getAllEmpresas,
-    getEmpresa: getEmpresa,
-    createEmpresa: createEmpresa,
-    updateEmpresa: updateEmpresa,
-    removeEmpresa: removeEmpresa
+    getAllOcupacoes: getAllOcupacoes,
+    getOcupacao: getOcupacao,
+    createOcupacao: createOcupacao,
+    updateOcupacao: updateOcupacao,
+    removeOcupacao: removeOcupacao
 };
