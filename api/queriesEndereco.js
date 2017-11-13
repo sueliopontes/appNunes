@@ -65,8 +65,8 @@ function getEndereco(req, res, next) {
 function createEndereco(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,estado)' +
-  'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${estado})',
+  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,uf)' +
+  'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${uf})',
   req.body)
     .then(function () {
       res.status(200)
@@ -81,8 +81,8 @@ function createEndereco(req, res, next) {
 }
 
 function updateEndereco(req, res, next) {
-  db.none('UPDATE public.endereco SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, estado=$6 where id=$7',
-    [req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.estado,parseInt(req.params.id)])
+  db.none('UPDATE public.endereco SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, uf=$6 where id=$7',
+    [req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.uf,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
         .json({
