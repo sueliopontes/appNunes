@@ -65,7 +65,7 @@ function getEndereco(req, res, next) {
 function createEndereco(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.ndereco(logradouro,numero,bairro,cidade,cep,estado)' +
+  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,estado)' +
   'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${estado})',
   req.body)
     .then(function () {
