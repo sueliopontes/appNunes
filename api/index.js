@@ -16,12 +16,21 @@ router.get('/', function(req, res, next) {
 // Postgres queries
 //////////////////////
 
-var db = require('./queries');
+var db1 = require('./queriesLocatario');
 
-router.get('/api/locatario', db.getAllLocatarios);
-router.get('/api/locatario/:id', db.getLocatario);
-router.post('/api/locatario', db.createLocatario);
-router.put('/api/locatario/:id', db.updateLocatario);
-router.delete('/api/locatario/:id', db.removeLocatario);
+router.get('/api/locatario', db1.getAllLocatarios);
+router.get('/api/locatario/:id', db1.getLocatario);
+router.post('/api/locatario', db1.createLocatario);
+router.put('/api/locatario/:id', db1.updateLocatario);
+router.delete('/api/locatario/:id', db1.removeLocatario);
+
+
+var db2 = require('./queriesEndereco');
+
+router.get('/api/endereco', db2.getAllEnderecos);
+router.get('/api/endereco/:id', db2.getEndereco);
+router.post('/api/endereco', db2.createEndereco);
+router.put('/api/endereco/:id', db2.updateEndereco);
+router.delete('/api/endereco/:id', db2.removeEndereco);
 
 module.exports = router;
