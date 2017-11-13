@@ -15,14 +15,14 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getAllEnderecos(req, res, next) {
-  db.any('SELECT * FROM endereco')
+function getAllRPs(req, res, next) {
+  db.any('SELECT * FROM referencia_pessoal')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all Endereco'
+          message: 'Retrieved all RP'
         });
     })
     .catch(function (err) {
@@ -31,15 +31,15 @@ function getAllEnderecos(req, res, next) {
 }
 
 
-function getEndereco(req, res, next) {
+function getRP(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM endereco WHERE id = $1', id)
+  db.one('SELECT * FROM referencia_pessoal WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one Endereco'
+          message: 'Retrieved one RP'
         });
     })
     .catch(function (err) {
@@ -47,17 +47,17 @@ function getEndereco(req, res, next) {
     });
 }
 
-function createEndereco(req, res, next) {
+function createRP(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,uf)' +
-  'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${uf})',
+  db.none('INSERT INTO public.referencia_pessoal(nome,telefone, parentesco)' +
+  'VALUES (${nome}, ${telefone}, ${parentesco})',
   req.body)
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Inserted one Endereco'
+          message: 'Inserted one RP'
         });
     })
     .catch(function (err) {
@@ -65,14 +65,14 @@ function createEndereco(req, res, next) {
     });
 }
 
-function updateEndereco(req, res, next) {
-  db.none('UPDATE public.endereco SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, uf=$6 where id=$7',
-    [req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.uf,parseInt(req.params.id)])
+function updateRP(req, res, next) {
+  db.none('UPDATE public.referencia_pessoal SET nome=$1, telefone=$2, parentesco=$3',
+    [req.body.nome, req.body.telefone, req.body.parentesco,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Updated Endereco'
+          message: 'Updated RP'
         });
     })
     .catch(function (err) {
@@ -80,15 +80,15 @@ function updateEndereco(req, res, next) {
     });
 }
 
-function removeEndereco(req, res, next) {
+function removeRP(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.endereco WHERE id = $1', id)
+  db.result('DELETE FROM public.referencia_pessoal WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} Endereco'
+          message: 'Removed ${result.rowCount} RP'
         });
       /* jshint ignore:end */
     })
@@ -97,15 +97,15 @@ function removeEndereco(req, res, next) {
     });
 }
 
-function removeEndereco(req, res, next) {
+function removeRP(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.endereco WHERE id = $1', id)
+  db.result('DELETE FROM public.referencia_pessoal WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} Endereco'
+          message: 'Removed ${result.rowCount} RP'
         });
       /* jshint ignore:end */
     })
@@ -120,9 +120,9 @@ function removeEndereco(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllEnderecos: getAllEnderecos,
-    getEndereco: getEndereco,
-    createEndereco: createEndereco,
-    updateEndereco: updateEndereco,
-    removeEndereco: removeEndereco
+    getAllRPs: getAllRPs,
+    getRP: getRP,
+    createRP: createRP,
+    updateRP: updateRP,
+    removeRP: removeRP
 };

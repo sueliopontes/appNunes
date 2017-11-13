@@ -15,14 +15,14 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getAllEnderecos(req, res, next) {
-  db.any('SELECT * FROM endereco')
+function getAllEmpresas(req, res, next) {
+  db.any('SELECT * FROM empresa')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all Endereco'
+          message: 'Retrieved all Empresa'
         });
     })
     .catch(function (err) {
@@ -31,15 +31,15 @@ function getAllEnderecos(req, res, next) {
 }
 
 
-function getEndereco(req, res, next) {
+function getEmpresa(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM endereco WHERE id = $1', id)
+  db.one('SELECT * FROM empresa WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one Endereco'
+          message: 'Retrieved one Empresa'
         });
     })
     .catch(function (err) {
@@ -47,17 +47,17 @@ function getEndereco(req, res, next) {
     });
 }
 
-function createEndereco(req, res, next) {
+function createEmpresa(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,uf)' +
-  'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${uf})',
+  db.none('INSERT INTO public.empresa(nome,cnpj,contato,endereco,admissao,salario,ocupacao,rendas)' +
+  'VALUES (${nome}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas})',
   req.body)
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Inserted one Endereco'
+          message: 'Inserted one Empresa'
         });
     })
     .catch(function (err) {
@@ -65,14 +65,14 @@ function createEndereco(req, res, next) {
     });
 }
 
-function updateEndereco(req, res, next) {
-  db.none('UPDATE public.endereco SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, uf=$6 where id=$7',
-    [req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.uf,parseInt(req.params.id)])
+function updateEmpresa(req, res, next) {
+  db.none('UPDATE public.empresa SET nome=$1, cnpj=$2, contato=$3, endereco=$4, admissao=$5, salario=$6, ocupacao=$7, rendas=$7',
+    [req.body.nome, req.body.cnpj, req.body.contato,req.body.endereco,req.body.admissao,req.body.salario,req.body.ocupacao,req.body.rendas,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Updated Endereco'
+          message: 'Updated Empresa'
         });
     })
     .catch(function (err) {
@@ -80,15 +80,15 @@ function updateEndereco(req, res, next) {
     });
 }
 
-function removeEndereco(req, res, next) {
+function removeEmpresa(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.endereco WHERE id = $1', id)
+  db.result('DELETE FROM public.empresa WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} Endereco'
+          message: 'Removed ${result.rowCount} Empresa'
         });
       /* jshint ignore:end */
     })
@@ -97,15 +97,15 @@ function removeEndereco(req, res, next) {
     });
 }
 
-function removeEndereco(req, res, next) {
+function removeEmpresa(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.endereco WHERE id = $1', id)
+  db.result('DELETE FROM public.empresa WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} Endereco'
+          message: 'Removed ${result.rowCount} Empresa'
         });
       /* jshint ignore:end */
     })
@@ -120,9 +120,9 @@ function removeEndereco(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllEnderecos: getAllEnderecos,
-    getEndereco: getEndereco,
-    createEndereco: createEndereco,
-    updateEndereco: updateEndereco,
-    removeEndereco: removeEndereco
+    getAllEmpresas: getAllEmpresas,
+    getEmpresa: getEmpresa,
+    createEmpresa: createEmpresa,
+    updateEmpresa: updateEmpresa,
+    removeEmpresa: removeEmpresa
 };

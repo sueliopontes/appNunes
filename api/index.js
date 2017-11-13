@@ -41,4 +41,38 @@ router.post('/api/contato', db3.createContato);
 router.put('/api/contato/:id', db3.updateContato);
 router.delete('/api/contato/:id', db3.removeContato);
 
+
+var db4 = require('./queriesBanco');
+
+router.get('/api/banco', db4.getAllBancos);
+router.get('/api/banco/:id', db4.getBanco);
+router.post('/api/banco', db4.createBanco);
+router.put('/api/banco/:id', db4.updateBanco);
+router.delete('/api/banco/:id', db4.removeBanco);
+
+var db5 = require('./queriesReferenciaPessoal');
+
+router.get('/api/rp', db5.getAllRPs);
+router.get('/api/rp/:id', db5.getRP);
+router.post('/api/rp', db5.createRP);
+router.put('/api/rp/:id', db5.updateRP);
+router.delete('/api/rp/:id', db5.removeRP);
+
+var db6 = require('./queriesReferenciaComercial');
+
+router.get('/api/rc', db6.getAllRCs);
+router.get('/api/rc/:id', db6.getRC);
+router.post('/api/rc', db6.createRC);
+router.put('/api/rc/:id', db6.updateRC);
+router.delete('/api/rc/:id', db6.removeRC);
+
+var db7 = require('./queriesEmpresa');
+
+router.get('/api/empresa', db7.getAllEmpresas);
+router.get('/api/empresa/:id', db7.getEmpresa);
+router.post('/api/empresa', db7.createEmpresa);
+router.put('/api/empresa/:id', db7.updateEmpresa);
+router.delete('/api/empresa/:id', db7.removeEmpresa);
+
+
 module.exports = router;
