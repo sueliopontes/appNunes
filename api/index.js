@@ -33,4 +33,12 @@ router.post('/api/endereco', db2.createEndereco);
 router.put('/api/endereco/:id', db2.updateEndereco);
 router.delete('/api/endereco/:id', db2.removeEndereco);
 
+var db3 = require('./queriesContato');
+
+router.get('/api/contato', db3.getAllContatos);
+router.get('/api/contato/:id', db3.getContato);
+router.post('/api/contato', db3.createContato);
+router.put('/api/contato/:id', db3.updateContato);
+router.delete('/api/contato/:id', db3.removeContato);
+
 module.exports = router;
