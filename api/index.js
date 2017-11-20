@@ -37,6 +37,7 @@ var db3 = require('./queriesContato');
 
 router.get('/api/contato', db3.getAllContatos);
 router.get('/api/contato/:id', db3.getContato);
+router.get('/api/contato/user/:id', db3.getContatoUser);
 router.post('/api/contato', db3.createContato);
 router.put('/api/contato/:id', db3.updateContato);
 router.delete('/api/contato/:id', db3.removeContato);

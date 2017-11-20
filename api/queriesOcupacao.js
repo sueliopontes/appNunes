@@ -50,7 +50,7 @@ function getOcupacao(req, res, next) {
 function createOcupacao(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.ocupacao(empresa,cnpj,contato,endereco,admissao,salario,ocupacao,rendas)' +
+  db.none('INSERT INTO public.ocupacao(empresa, cnpj, contato,endereco,admissao,salario,ocupacao,rendas)' +
   'VALUES (${empresa}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas})',
   req.body)
     .then(function () {

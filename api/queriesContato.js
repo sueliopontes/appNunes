@@ -62,6 +62,22 @@ function getContato(req, res, next) {
     });
 }
 
+function getContatoUser(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.one('SELECT * FROM contato WHERE user = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one Contato'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 function createContato(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
