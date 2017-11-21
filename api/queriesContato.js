@@ -153,6 +153,7 @@ function removeContato(req, res, next) {
 module.exports = {
     getAllContatos: getAllContatos,
     getContato: getContato,
+    getContatoUser: getContatoUser,
     createContato: createContato,
     updateContato: updateContato,
     removeContato: removeContato
