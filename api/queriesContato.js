@@ -97,7 +97,7 @@ function createContato(req, res, next) {
 }
 
 function updateContato(req, res, next) {
-  db.none('UPDATE public.contato SET fixo=$1, celular=$2, email=$3, recado=$4',
+  db.none('UPDATE public.contato SET fixo=$1, celular=$2, email=$3, recado=$4 WHERE id = $5',
     [req.body.fixo, req.body.celular, req.body.email,req.body.recado,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
