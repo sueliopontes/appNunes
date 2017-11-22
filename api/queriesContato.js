@@ -64,7 +64,7 @@ function getContato(req, res, next) {
 
 function getContatoUser(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM contato WHERE user_id = $1', id)
+  db.any('SELECT * FROM contato WHERE user_id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
