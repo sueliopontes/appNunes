@@ -45,12 +45,27 @@ function getRP(req, res, next) {
       return next(err);
     });
 }
+function getRPUser(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.any('SELECT * FROM referencia_pessoal WHERE user_id = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one RP'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
 
 function createRP(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.referencia_pessoal(nome,telefone, parentesco)' +
-  'VALUES (${nome}, ${telefone}, ${parentesco})',
+  db.none('INSERT INTO public.referencia_pessoal(nome,telefone, parentesco,user_id)' +
+  'VALUES (${nome}, ${telefone}, ${parentesco},${user})',
   req.body)
     .then(function () {
       res.status(200)
@@ -65,7 +80,7 @@ function createRP(req, res, next) {
 }
 
 function updateRP(req, res, next) {
-  db.none('UPDATE public.referencia_pessoal SET nome=$1, telefone=$2, parentesco=$3',
+  db.none('UPDATE public.referencia_pessoal SET nome=$1, telefone=$2, parentesco=$3 WHERE id = $4',
     [req.body.nome, req.body.telefone, req.body.parentesco,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -121,6 +136,7 @@ function removeRP(req, res, next) {
 module.exports = {
     getAllRPs: getAllRPs,
     getRP: getRP,
+    getRPUser: getRPUser,
     createRP: createRP,
     updateRP: updateRP,
     removeRP: removeRP

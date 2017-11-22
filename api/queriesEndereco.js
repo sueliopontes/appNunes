@@ -45,12 +45,28 @@ function getEndereco(req, res, next) {
       return next(err);
     });
 }
+function getEnderecoUser(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.any('SELECT * FROM endereco WHERE user_id = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one Endereco'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 
 function createEndereco(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,uf)' +
-  'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${uf})',
+  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,uf,user_id)' +
+  'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${uf},${user})',
   req.body)
     .then(function () {
       res.status(200)
@@ -121,6 +137,7 @@ function removeEndereco(req, res, next) {
 module.exports = {
     getAllEnderecos: getAllEnderecos,
     getEndereco: getEndereco,
+    getEnderecoUser:getEnderecoUser,
     createEndereco: createEndereco,
     updateEndereco: updateEndereco,
     removeEndereco: removeEndereco

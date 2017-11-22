@@ -46,12 +46,27 @@ function getRC(req, res, next) {
       return next(err);
     });
 }
+function getRCUser(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.any('SELECT * FROM referencia_comercial WHERE user_id = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one RC'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
 
 function createRC(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.referencia_comercial(empresa,contato,telefone)' +
-  'VALUES (${empresa}, ${contato}, ${telefone})',
+  db.none('INSERT INTO public.referencia_comercial(empresa,contato,telefone,user_id)' +
+  'VALUES (${empresa}, ${contato}, ${telefone},${user})',
   req.body)
     .then(function () {
       res.status(200)
@@ -66,7 +81,7 @@ function createRC(req, res, next) {
 }
 
 function updateRC(req, res, next) {
-  db.none('UPDATE public.referencia_comercial SET empresa=$1, contato=$2, telefone=$3',
+  db.none('UPDATE public.referencia_comercial SET empresa=$1, contato=$2, telefone=$3 where id=$4',
     [req.body.empresa, req.body.contato, req.body.telefone,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -122,6 +137,7 @@ function removeRC(req, res, next) {
 module.exports = {
     getAllRCs: getAllRCs,
     getRC: getRC,
+    getRCUser: getRCUser,
     createRC: createRC,
     updateRC: updateRC,
     removeRC: removeRC

@@ -46,12 +46,27 @@ function getOcupacao(req, res, next) {
       return next(err);
     });
 }
+function getOcupacaoUser(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.any('SELECT * FROM ocupacao WHERE user_id = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one Ocupacao'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
 
 function createOcupacao(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.ocupacao(empresa, cnpj, contato,endereco,admissao,salario,ocupacao,rendas)' +
-  'VALUES (${empresa}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas})',
+  db.none('INSERT INTO public.ocupacao(empresa, cnpj, contato,endereco,admissao,salario,ocupacao,rendas,user_id)' +
+  'VALUES (${empresa}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas},${user})',
   req.body)
     .then(function () {
       res.status(200)
@@ -66,7 +81,7 @@ function createOcupacao(req, res, next) {
 }
 
 function updateOcupacao(req, res, next) {
-  db.none('UPDATE public.ocupacao SET empresa=$1, cnpj=$2, contato=$3, endereco=$4, admissao=$5, salario=$6, ocupacao=$7, rendas=$7',
+  db.none('UPDATE public.ocupacao SET empresa=$1, cnpj=$2, contato=$3, endereco=$4, admissao=$5, salario=$6, ocupacao=$7, rendas=$7 where id=$8',
     [req.body.empresa, req.body.cnpj, req.body.contato,req.body.endereco,req.body.admissao,req.body.salario,req.body.ocupacao,req.body.rendas,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -122,6 +137,7 @@ function removeOcupacao(req, res, next) {
 module.exports = {
     getAllOcupacoes: getAllOcupacoes,
     getOcupacao: getOcupacao,
+    getOcupacaoUser: getOcupacaoUser,
     createOcupacao: createOcupacao,
     updateOcupacao: updateOcupacao,
     removeOcupacao: removeOcupacao

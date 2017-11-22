@@ -29,6 +29,7 @@ var db2 = require('./queriesEndereco');
 
 router.get('/api/endereco', db2.getAllEnderecos);
 router.get('/api/endereco/:id', db2.getEndereco);
+router.get('/api/endereco/user/:id', db2.getEnderecoUser);
 router.post('/api/endereco', db2.createEndereco);
 router.put('/api/endereco/:id', db2.updateEndereco);
 router.delete('/api/endereco/:id', db2.removeEndereco);
@@ -47,6 +48,7 @@ var db4 = require('./queriesBanco');
 
 router.get('/api/banco', db4.getAllBancos);
 router.get('/api/banco/:id', db4.getBanco);
+router.get('/api/banco/user/:id', db4.getBancoUser);
 router.post('/api/banco', db4.createBanco);
 router.put('/api/banco/:id', db4.updateBanco);
 router.delete('/api/banco/:id', db4.removeBanco);
@@ -55,6 +57,7 @@ var db5 = require('./queriesReferenciaPessoal');
 
 router.get('/api/rp', db5.getAllRPs);
 router.get('/api/rp/:id', db5.getRP);
+router.get('/api/rp/user/:id', db5.getRPUser);
 router.post('/api/rp', db5.createRP);
 router.put('/api/rp/:id', db5.updateRP);
 router.delete('/api/rp/:id', db5.removeRP);
@@ -63,6 +66,7 @@ var db6 = require('./queriesReferenciaComercial');
 
 router.get('/api/rc', db6.getAllRCs);
 router.get('/api/rc/:id', db6.getRC);
+router.get('/api/rc/user/:id', db6.getRCUser);
 router.post('/api/rc', db6.createRC);
 router.put('/api/rc/:id', db6.updateRC);
 router.delete('/api/rc/:id', db6.removeRC);
@@ -71,6 +75,7 @@ var db7 = require('./queriesOcupacao');
 
 router.get('/api/ocupacao', db7.getAllOcupacoes);
 router.get('/api/ocupacao/:id', db7.getOcupacao);
+router.get('/api/ocupacao/user/:id', db7.getOcupacao);
 router.post('/api/ocupacao', db7.createOcupacao);
 router.put('/api/ocupacao/:id', db7.updateOcupacao);
 router.delete('/api/ocupacao/:id', db7.removeOcupacao);

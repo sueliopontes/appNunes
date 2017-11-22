@@ -42,12 +42,27 @@ function getBanco(req, res, next) {
       return next(err);
     });
 }
+function getBancoUser(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.any('SELECT * FROM banco WHERE user_id = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one Banco'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
 
 function createBanco(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.banco(banco_numero,banco_nome,banco_agencia, banco_conta,banco_data_abertura)' +
-  'VALUES (${banco_numero}, ${banco_nome}, ${banco_agencia}, ${banco_conta},${banco_data_abertura})',
+  db.none('INSERT INTO public.banco(banco_numero,banco_nome,banco_agencia, banco_conta,banco_data_abertura, user_id)' +
+  'VALUES (${banco_numero}, ${banco_nome}, ${banco_agencia}, ${banco_conta},${banco_data_abertura},${user})',
   req.body)
     .then(function () {
       res.status(200)
@@ -62,7 +77,7 @@ function createBanco(req, res, next) {
 }
 
 function updateBanco(req, res, next) {
-  db.none('UPDATE public.banco SET banco_numero=$1, banco_nome=$2, banco_agencia=$3,banco_conta=$4,banco_data_abertura=$5',
+  db.none('UPDATE public.banco SET banco_numero=$1, banco_nome=$2, banco_agencia=$3,banco_conta=$4,banco_data_abertura=$5  WHERE id = $6',
     [req.body.banco_numero, req.body.banco_nome, req.body.banco_agencia,req.body.banco_conta,req.body.banco_data_abertura,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -118,6 +133,7 @@ function removeBanco(req, res, next) {
 module.exports = {
     getAllBancos: getAllBancos,
     getBanco: getBanco,
+    getBancoUser: getBancoUser,
     createBanco: createBanco,
     updateBanco: updateBanco,
     removeBanco: removeBanco
