@@ -82,7 +82,7 @@ function createOcupacao(req, res, next) {
 }
 
 function updateOcupacao(req, res, next) {
-  db.none('UPDATE public.ocupacao SET empresa=$1, cnpj=$2, contato=$3, endereco=$4, admissao=$5, salario=$6, ocupacao=$7, rendas=$7 where id=$8',
+  db.none('UPDATE public.ocupacao SET empresa=$1, cnpj=$2, contato=$3, endereco=$4, admissao=$5, salario=$6, ocupacao=$7, rendas=$8 where id=$9',
     [req.body.empresa, req.body.cnpj, req.body.contato,req.body.endereco,req.body.admissao,req.body.salario,req.body.ocupacao,req.body.rendas,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
