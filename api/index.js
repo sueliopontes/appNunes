@@ -75,7 +75,7 @@ var db7 = require('./queriesOcupacao');
 
 router.get('/api/ocupacao', db7.getAllOcupacoes);
 router.get('/api/ocupacao/:id', db7.getOcupacao);
-router.get('/api/ocupacao/user/:id', db7.getOcupacao);
+router.get('/api/ocupacao/user/:id', db7.getOcupacaoUser);
 router.post('/api/ocupacao', db7.createOcupacao);
 router.put('/api/ocupacao/:id', db7.updateOcupacao);
 router.delete('/api/ocupacao/:id', db7.removeOcupacao);

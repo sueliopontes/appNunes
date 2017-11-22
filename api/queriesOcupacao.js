@@ -62,6 +62,7 @@ function getOcupacaoUser(req, res, next) {
     });
 }
 
+
 function createOcupacao(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 

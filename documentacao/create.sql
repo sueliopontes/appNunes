@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS locatario;
 CREATE TABLE locatario (
 	  id SERIAL NOT NULL PRIMARY KEY,
 	  nome VARCHAR(60),
-    cpf VARCHAR(11),
-    rg VARCHAR(10),
+    cpf VARCHAR(20),
+    rg VARCHAR(15),
     emissor VARCHAR(5),
     uf VARCHAR(20),
     sexo VARCHAR(20),
@@ -55,7 +55,7 @@ CREATE TABLE referencia_pessoal (
 	id SERIAL NOT NULL PRIMARY KEY,
     user_id INTEGER,
 	nome VARCHAR(60),
-    telefone VARCHAR(15),
+    telefone VARCHAR(20),
     parentesco VARCHAR(30)   
 );
 
@@ -64,7 +64,7 @@ CREATE TABLE referencia_comercial (
 	id SERIAL NOT NULL PRIMARY KEY,
     user_id INTEGER,
 	empresa VARCHAR(60),
-    contato VARCHAR(15),
+    contato VARCHAR(60),
     telefone VARCHAR(30)   
 );
 
