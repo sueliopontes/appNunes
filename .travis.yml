@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "6"
+deploy:
+ provider: heroku
+ api-key: 
+  secure: $HEROKU_API_KEY
+app: appnunes
