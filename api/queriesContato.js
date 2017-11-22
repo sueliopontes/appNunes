@@ -81,8 +81,8 @@ function getContatoUser(req, res, next) {
 function createContato(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.contato(fixo,celular,email,recado)' +
-  'VALUES (${fixo}, ${celular}, ${email}, ${recado})',
+  db.none('INSERT INTO public.contato(fixo,user_id,celular,email,recado)' +
+  'VALUES (${fixo},${user}, ${celular}, ${email}, ${recado})',
   req.body)
     .then(function () {
       res.status(200)
