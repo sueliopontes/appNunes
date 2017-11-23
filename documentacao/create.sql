@@ -36,13 +36,22 @@ CREATE TABLE contato (
     email VARCHAR(60)   
 );
 
+DROP TABLE IF EXISTS conjuge;
+CREATE TABLE conjuge (
+    id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER,
+    nome VARCHAR(60),
+    cpf VARCHAR(20),
+    rg VARCHAR(20)   
+);
+
 DROP TABLE IF EXISTS ocupacao;
 CREATE TABLE ocupacao (
-	  id SERIAL NOT NULL PRIMARY KEY,
-      user_id INTEGER,
-	  empresa VARCHAR(60),
-    cnpj VARCHAR(20),
-    contato VARCHAR(15),
+	id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER,
+	empresa VARCHAR(60),
+    cnpj VARCHAR(60),
+    contato VARCHAR(60),
     endereco VARCHAR(60),
     admissao VARCHAR(60),
     salario VARCHAR(60),
