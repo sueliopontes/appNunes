@@ -80,6 +80,7 @@ router.post('/api/ocupacao', db7.createOcupacao);
 router.put('/api/ocupacao/:id', db7.updateOcupacao);
 router.delete('/api/ocupacao/:id', db7.removeOcupacao);
 
+/*
 var db8 = require('./queriesConjuge');
 
 router.get('/api/conjuge', db8.getAllConjuge);
@@ -88,6 +89,6 @@ router.get('/api/conjuge/user/:id', db8.getConjugeUser);
 router.post('/api/conjuge', db8.createConjuge);
 router.put('/api/conjuge/:id', db8.updateConjuge);
 router.delete('/api/conjuge/:id', db8.removeConjuge);
-
+*/
 
 module.exports = router;
