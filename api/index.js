@@ -90,5 +90,13 @@ router.post('/api/conjuge', db8.createConjuge);
 router.put('/api/conjuge/:id', db8.updateConjuge);
 router.delete('/api/conjuge/:id', db8.removeConjuge);
 
+var db9 = require('./queriesLocador');
+
+router.get('/api/locador', db9.getAllLocadors);
+router.get('/api/locador/:id', db9.getLocador);
+router.post('/api/locador', db9.createLocador);
+router.put('/api/locador/:id', db9.updateLocador);
+router.delete('/api/locador/:id', db9.removeLocador);
+
 
 module.exports = router;
