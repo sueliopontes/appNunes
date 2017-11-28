@@ -104,3 +104,23 @@ CREATE TABLE locador (
     estado VARCHAR(20)
 );
 
+DROP TABLE IF EXISTS imoveis;
+CREATE TABLE locador (
+	  id SERIAL NOT NULL PRIMARY KEY,
+	  locador_id VARCHAR(60)
+);
+DROP TABLE IF EXISTS contrato;
+CREATE TABLE contrato (
+	  id SERIAL NOT NULL PRIMARY KEY,
+	  locador_id VARCHAR(60),
+    locatario_id VARCHAR(20),
+    imoveis_id VARCHAR(15),
+    valor VARCHAR(5),
+    vigencia VARCHAR(20),
+    data_contrato VARCHAR(20),
+    taxa_adm VARCHAR(20),
+    data_pgt VARCHAR(20)
+);
+
+
+

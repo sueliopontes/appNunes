@@ -98,5 +98,13 @@ router.post('/api/locador', db9.createLocador);
 router.put('/api/locador/:id', db9.updateLocador);
 router.delete('/api/locador/:id', db9.removeLocador);
 
+var db11 = require('./queriesContrato');
+
+router.get('/api/contrato', db11.getAllContrato);
+router.get('/api/contrato/:id', db11.getContrato);
+router.post('/api/contrato', db11.createContrato);
+router.put('/api/contrato/:id', db11.updateContrato);
+router.delete('/api/contrato/:id', db11.removeContrato);
+
 
 module.exports = router;
