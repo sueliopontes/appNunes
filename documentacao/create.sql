@@ -122,5 +122,27 @@ CREATE TABLE contrato (
     data_pgt VARCHAR(20)
 );
 
+DROP TABLE IF EXISTS endereco2;
+CREATE TABLE endereco2 (
+	  id SERIAL NOT NULL PRIMARY KEY,
+      user_id INTEGER,
+	  logradouro VARCHAR(60),
+    numero VARCHAR(11),
+    bairro VARCHAR(60),
+    cidade VARCHAR(60),
+    cep VARCHAR(20),
+    uf VARCHAR(20)    
+);
+
+DROP TABLE IF EXISTS contato2;
+CREATE TABLE contato2 (
+    id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER,
+    fixo VARCHAR(15),
+    celular VARCHAR(15),
+    recado VARCHAR(15),
+    email VARCHAR(60)   
+);
+
 
 

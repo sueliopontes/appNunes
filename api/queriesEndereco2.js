@@ -15,7 +15,7 @@ var db = pgp(connectionString);
 /////////////////////
 
 function getAllEnderecos(req, res, next) {
-  db.any('SELECT * FROM endereco')
+  db.any('SELECT * FROM endereco2')
     .then(function (data) {
       res.status(200)
         .json({
@@ -32,7 +32,7 @@ function getAllEnderecos(req, res, next) {
 
 function getEndereco(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM endereco WHERE id = $1', id)
+  db.one('SELECT * FROM endereco2 WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -47,7 +47,7 @@ function getEndereco(req, res, next) {
 }
 function getEnderecoUser(req, res, next) {
   var id = parseInt(req.params.id);
-  db.any('SELECT * FROM endereco WHERE user_id = $1', id)
+  db.any('SELECT * FROM endereco2 WHERE user_id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -65,7 +65,7 @@ function getEnderecoUser(req, res, next) {
 function createEndereco(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.endereco(logradouro,numero,bairro,cidade,cep,uf,user_id)' +
+  db.none('INSERT INTO public.endereco2(logradouro,numero,bairro,cidade,cep,uf,user_id)' +
   'VALUES (${logradouro}, ${numero}, ${bairro}, ${cep}, ${cidade}, ${uf},${user})',
   req.body)
     .then(function () {
@@ -81,7 +81,7 @@ function createEndereco(req, res, next) {
 }
 
 function updateEndereco(req, res, next) {
-  db.none('UPDATE public.endereco SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, uf=$6 where id=$7',
+  db.none('UPDATE public.endereco2 SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, uf=$6 where id=$7',
     [req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.uf,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -97,7 +97,7 @@ function updateEndereco(req, res, next) {
 
 function removeEndereco(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.endereco WHERE id = $1', id)
+  db.result('DELETE FROM public.endereco2 WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
@@ -114,7 +114,7 @@ function removeEndereco(req, res, next) {
 
 function removeEndereco(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.endereco WHERE id = $1', id)
+  db.result('DELETE FROM public.endereco2 WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)

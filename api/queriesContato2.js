@@ -31,7 +31,7 @@ function getAllLocatarios(req, res, next) {
 }
 */
 function getAllContatos(req, res, next) {
-  db.any('SELECT * FROM contato')
+  db.any('SELECT * FROM contato2')
     .then(function (data) {
       res.status(200)
         .json({
@@ -48,7 +48,7 @@ function getAllContatos(req, res, next) {
 
 function getContato(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM contato WHERE id = $1', id)
+  db.one('SELECT * FROM contato2 WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -64,7 +64,7 @@ function getContato(req, res, next) {
 
 function getContatoUser(req, res, next) {
   var id = parseInt(req.params.id);
-  db.any('SELECT * FROM contato WHERE user_id = $1', id)
+  db.any('SELECT * FROM contato2 WHERE user_id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -81,7 +81,7 @@ function getContatoUser(req, res, next) {
 function createContato(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.contato(fixo,user_id,celular,email,recado)' +
+  db.none('INSERT INTO public.contato2(fixo,user_id,celular,email,recado)' +
   'VALUES (${fixo},${user}, ${celular}, ${email}, ${recado})',
   req.body)
     .then(function () {
@@ -97,7 +97,7 @@ function createContato(req, res, next) {
 }
 
 function updateContato(req, res, next) {
-  db.none('UPDATE public.contato SET fixo=$1, celular=$2, email=$3, recado=$4 WHERE id = $5',
+  db.none('UPDATE public.contato2 SET fixo=$1, celular=$2, email=$3, recado=$4 WHERE id = $5',
     [req.body.fixo, req.body.celular, req.body.email,req.body.recado,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -113,7 +113,7 @@ function updateContato(req, res, next) {
 
 function removeContato(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.contato WHERE id = $1', id)
+  db.result('DELETE FROM public.contato2 WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
@@ -130,7 +130,7 @@ function removeContato(req, res, next) {
 
 function removeContato(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.contato WHERE id = $1', id)
+  db.result('DELETE FROM public.contato2 WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
