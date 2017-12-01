@@ -88,3 +88,19 @@ CREATE TABLE banco (
     banco_data_abertura VARCHAR(30)   
 );
 
+DROP TABLE IF EXISTS locador;
+CREATE TABLE locador (
+	  id SERIAL NOT NULL PRIMARY KEY,
+	  nome VARCHAR(60),
+    cpf VARCHAR(20),
+    rg VARCHAR(15),
+    emissor VARCHAR(5),
+    uf VARCHAR(20),
+    sexo VARCHAR(20),
+    nascimento VARCHAR(20),
+    naturalidade VARCHAR(20),
+    pai VARCHAR(60),
+    mae VARCHAR(60),
+    estado VARCHAR(20)
+);
+
