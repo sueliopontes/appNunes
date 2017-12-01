@@ -106,5 +106,13 @@ router.post('/api/imoveis', db9.createImoveis);
 router.put('/api/imoveis/:id', db9.updateImoveis);
 router.delete('/api/imoveis/:id', db9.removeImoveis);
 
+var db11 = require('./queriesContrato');
+
+router.get('/api/contrato', db11.getAllContrato);
+router.get('/api/contrato/:id', db11.getContrato);
+router.post('/api/contrato', db11.createContrato);
+router.put('/api/contrato/:id', db11.updateContrato);
+router.delete('/api/contrato/:id', db11.removeContrato);
+
 
 module.exports = router;
