@@ -98,22 +98,22 @@ router.post('/api/locador', db9.createLocador);
 router.put('/api/locador/:id', db9.updateLocador);
 router.delete('/api/locador/:id', db9.removeLocador);
 
-/*
+
 var db10 = require('./queriesImoveis');
 
-router.get('/api/imoveis', db9.getAllImoveis);
-router.get('/api/imoveis/:id', db9.getImoveis);
-router.post('/api/imoveis', db9.createImoveis);
-router.put('/api/imoveis/:id', db9.updateImoveis);
-router.delete('/api/imoveis/:id', db9.removeImoveis);
+router.get('/api/imoveis', db10.getAllImoveis);
+router.get('/api/imoveis/:id', db10.getImoveis);
+router.post('/api/imoveis', db10.createImoveis);
+router.put('/api/imoveis/:id', db10.updateImoveis);
+router.delete('/api/imoveis/:id', db10.removeImoveis);
 
 var db11 = require('./queriesContrato');
 
-router.get('/api/contrato', db11.getAllContrato);
+router.get('/api/contrato', db11.getAllContratos);
 router.get('/api/contrato/:id', db11.getContrato);
 router.post('/api/contrato', db11.createContrato);
 router.put('/api/contrato/:id', db11.updateContrato);
 router.delete('/api/contrato/:id', db11.removeContrato);
-*/
+
 
 module.exports = router;
