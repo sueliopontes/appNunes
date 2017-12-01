@@ -115,5 +115,23 @@ router.post('/api/contrato', db11.createContrato);
 router.put('/api/contrato/:id', db11.updateContrato);
 router.delete('/api/contrato/:id', db11.removeContrato);
 
+var db12 = require('./queriesEndereco2');
+
+router.get('/api/endereco2', db12.getAllEnderecos);
+router.get('/api/endereco2/:id', db12.getEndereco);
+router.get('/api/endereco2/user/:id', db12.getEnderecoUser);
+router.post('/api/endereco2', db12.createEndereco);
+router.put('/api/endereco2/:id', db12.updateEndereco);
+router.delete('/api/endereco2/:id', db12.removeEndereco);
+
+var db13 = require('./queriesContato2');
+
+router.get('/api/contato2', db13.getAllContatos);
+router.get('/api/contato2/:id', db13.getContato);
+router.get('/api/contato2/user/:id', db13.getContatoUser);
+router.post('/api/contato2', db13.createContato);
+router.put('/api/contato2/:id', db13.updateContato);
+router.delete('/api/contato2/:id', db13.removeContato);
+
 
 module.exports = router;
