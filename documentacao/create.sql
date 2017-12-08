@@ -107,7 +107,28 @@ CREATE TABLE locador (
 DROP TABLE IF EXISTS imoveis;
 CREATE TABLE locador (
 	  id SERIAL NOT NULL PRIMARY KEY,
-	  locador_id VARCHAR(60)
+	  locador_id VARCHAR(60),
+      iptu  varchar(60)
+      agua varchar(60),
+      luz varchar(60),
+      obs varchar(60)
+
+);
+
+DROP TABLE IF EXISTS imoveis_comodo;
+CREATE TABLE imoveis_comodo (
+	  id SERIAL NOT NULL PRIMARY KEY,
+	  imoveis_id VARCHAR(60),
+    comodo_id VARCHAR(60),
+    qtd varchar(10)
+
+);
+
+DROP TABLE IF EXISTS comodo;
+CREATE TABLE comodo (
+	  id SERIAL NOT NULL PRIMARY KEY,
+	  comodo VARCHAR(60)      
+
 );
 DROP TABLE IF EXISTS contrato;
 CREATE TABLE contrato (

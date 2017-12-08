@@ -133,5 +133,14 @@ router.post('/api/contato2', db13.createContato);
 router.put('/api/contato2/:id', db13.updateContato);
 router.delete('/api/contato2/:id', db13.removeContato);
 
+var db14 = require('./queriesEndereco3');
+
+router.get('/api/endereco3', db14.getAllEnderecos);
+router.get('/api/endereco3/:id', db14.getEndereco);
+router.get('/api/endereco3/user/:id', db14.getEnderecoUser);
+router.post('/api/endereco3', db14.createEndereco);
+router.put('/api/endereco3/:id', db14.updateEndereco);
+router.delete('/api/endereco3/:id', db14.removeEndereco);
+
 
 module.exports = router;

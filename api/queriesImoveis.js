@@ -45,8 +45,7 @@ function getImoveis(req, res, next) {
 function createImoveis(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.imoveis(locador_id)' + 'VALUES (${locador_id})',
-  req.body)
+  db.none('INSERT INTO public.imoveis(locador_id,iptu,agua,luz,obs)' + 'VALUES (${locador_id},${iptu},${agua),${luz},${obs}', req.body)
     .then(function () {
       res.status(200)
         .json({
@@ -60,8 +59,8 @@ function createImoveis(req, res, next) {
 }
 
 function updateImoveis(req, res, next) {
-  db.none('UPDATE public.imoveis SET locador_id=$1  where id=$2',
-    [req.body.locador_id,req.body.id])
+  db.none('UPDATE public.imoveis SET locador_id=$1, iptu=$2,agua=$3,luz=$4,obs=$5  where id=$6',
+    [req.body.locador_id,req.body.iptu,req.body.agua,req.body.luz,req.body.obs,req.body.id])
     .then(function () {
       res.status(200)
         .json({
