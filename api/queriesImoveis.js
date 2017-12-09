@@ -45,7 +45,7 @@ function getImoveis(req, res, next) {
 function createImoveis(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.imoveis(locador_id,iptu,agua,luz,obs)' + 'VALUES (${locador_id},${iptu},${agua),${luz},${obs}', req.body)
+  db.none('INSERT INTO public.imoveis(locador_id,iptu,agua,luz,obs)' + 'VALUES (${locador_id},${iptu},${agua},${luz},${obs})', req.body)
     .then(function () {
       res.status(200)
         .json({

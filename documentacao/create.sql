@@ -14,6 +14,7 @@ CREATE TABLE locatario (
     estado VARCHAR(20)
 );
 
+--Endereço dos locatários
 DROP TABLE IF EXISTS endereco;
 CREATE TABLE endereco (
 	  id SERIAL NOT NULL PRIMARY KEY,
@@ -25,7 +26,7 @@ CREATE TABLE endereco (
     cep VARCHAR(20),
     uf VARCHAR(20)    
 );
-
+--Contato dos locatários
 DROP TABLE IF EXISTS contato;
 CREATE TABLE contato (
     id SERIAL NOT NULL PRIMARY KEY,
@@ -142,7 +143,7 @@ CREATE TABLE contrato (
     taxa_adm VARCHAR(20),
     data_pgt VARCHAR(20)
 );
-
+--Endereço dos locadores
 DROP TABLE IF EXISTS endereco2;
 CREATE TABLE endereco2 (
 	  id SERIAL NOT NULL PRIMARY KEY,
@@ -154,7 +155,7 @@ CREATE TABLE endereco2 (
     cep VARCHAR(20),
     uf VARCHAR(20)    
 );
-
+--Contato dos locadores
 DROP TABLE IF EXISTS contato2;
 CREATE TABLE contato2 (
     id SERIAL NOT NULL PRIMARY KEY,
@@ -163,6 +164,19 @@ CREATE TABLE contato2 (
     celular VARCHAR(15),
     recado VARCHAR(15),
     email VARCHAR(60)   
+);
+
+--Endereço dos locatários
+DROP TABLE IF EXISTS endereco3;
+CREATE TABLE endereco3 (
+	  id SERIAL NOT NULL PRIMARY KEY,
+      user_id INTEGER,
+	  logradouro VARCHAR(60),
+    numero VARCHAR(11),
+    bairro VARCHAR(60),
+    cidade VARCHAR(60),
+    cep VARCHAR(20),
+    uf VARCHAR(20)    
 );
 
 
