@@ -102,6 +102,7 @@ router.delete('/api/locador/:id', db9.removeLocador);
 var db10 = require('./queriesImoveis');
 
 router.get('/api/imoveis', db10.getAllImoveis);
+router.get('/api/imoveisFull', db10.getAllImoveisFull);
 router.get('/api/imoveis/:id', db10.getImoveis);
 router.post('/api/imoveis', db10.createImoveis);
 router.put('/api/imoveis/:id', db10.updateImoveis);
