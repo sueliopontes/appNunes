@@ -119,8 +119,8 @@ CREATE TABLE imoveis (
 DROP TABLE IF EXISTS imoveis_comodo;
 CREATE TABLE imoveis_comodo (
 	  id SERIAL NOT NULL PRIMARY KEY,
-	  imoveis_id VARCHAR(60),
-    comodo_id VARCHAR(60),
+	  imoveis_id INTEGER,
+    comodo_id INTEGER,
     qtd varchar(10)
 
 );
@@ -134,9 +134,9 @@ CREATE TABLE comodo (
 DROP TABLE IF EXISTS contrato;
 CREATE TABLE contrato (
 	  id SERIAL NOT NULL PRIMARY KEY,
-	  locador_id VARCHAR(60),
-    locatario_id VARCHAR(20),
-    imoveis_id VARCHAR(15),
+	  locador_id INTEGER,
+    locatario_id INTEGER,
+    imoveis_id INTEGER,
     valor VARCHAR(5),
     vigencia VARCHAR(20),
     data_contrato VARCHAR(20),
@@ -170,7 +170,7 @@ CREATE TABLE contato2 (
 DROP TABLE IF EXISTS endereco3;
 CREATE TABLE endereco3 (
 	  id SERIAL NOT NULL PRIMARY KEY,
-      imovel_id INTEGER,
+      user_id INTEGER,
 	  logradouro VARCHAR(60),
     numero VARCHAR(11),
     bairro VARCHAR(60),
