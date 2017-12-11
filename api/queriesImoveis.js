@@ -25,6 +25,21 @@ function getAllImoveis(req, res, next) {
     });
 }
 
+function getAllImoveisFull(req, res, next) {
+  db.any('SELECT imoveis.id,endereco3.bairro,endereco3.logradouro,locador.nome FROM imoveis,endereco3,locador where imoveis.locador_id = locador.id and imoveis.id=endereco3.user_id')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all imoveis'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 
 function getImoveis(req, res, next) {
   var id = parseInt(req.params.id);
@@ -98,6 +113,7 @@ function removeImoveis(req, res, next) {
 module.exports = {
     getAllImoveis: getAllImoveis,
     getImoveis: getImoveis,
+    getAllImoveisFull: getAllImoveisFull,
     createImoveis: createImoveis,
     updateImoveis: updateImoveis,
     removeImoveis: removeImoveis
