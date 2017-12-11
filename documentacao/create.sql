@@ -106,9 +106,9 @@ CREATE TABLE locador (
 );
 
 DROP TABLE IF EXISTS imoveis;
-CREATE TABLE locador (
+CREATE TABLE imoveis (
 	  id SERIAL NOT NULL PRIMARY KEY,
-	  locador_id VARCHAR(60),
+	  locador_id INTEGER,
       iptu  varchar(60)
       agua varchar(60),
       luz varchar(60),
@@ -166,11 +166,11 @@ CREATE TABLE contato2 (
     email VARCHAR(60)   
 );
 
---Endereço dos locatários
+--Endereço dos imoveis dos locatores
 DROP TABLE IF EXISTS endereco3;
 CREATE TABLE endereco3 (
 	  id SERIAL NOT NULL PRIMARY KEY,
-      user_id INTEGER,
+      imovel_id INTEGER,
 	  logradouro VARCHAR(60),
     numero VARCHAR(11),
     bairro VARCHAR(60),
