@@ -66,6 +66,25 @@ function createLocatario(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
   db.none('INSERT INTO public.locatario(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
+  'VALUES (${nome}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado}) RETURNING id;',
+  req.body)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          data:data,
+          status: 'success',
+          message: 'Inserted one locatario'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+//Método original para insert funcionando sem retorno de id
+function createLocatario_bkp(req, res, next) {
+  req.body.launched = parseInt(req.body.launched);
+
+  db.none('INSERT INTO public.locatario(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
   'VALUES (${nome}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado})',
   req.body)
     .then(function () {
