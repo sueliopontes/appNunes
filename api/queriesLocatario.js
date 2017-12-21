@@ -65,7 +65,7 @@ function getLocatario(req, res, next) {
 function createLocatario(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.locatario(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
+  db.one('INSERT INTO public.locatario(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
   'VALUES (${nome}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado}) RETURNING id;',
   req.body)
     .then(function (data) {
