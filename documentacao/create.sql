@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS pessoa;
 CREATE TABLE pessoa (
-	  id SERIAL NOT NULL PRIMARY KEY,
-	  nome VARCHAR(60),
-      user_tipo INTEGER,
+	id SERIAL NOT NULL PRIMARY KEY,
+	nome VARCHAR(60),
+    user_tipo INTEGER,
     cpf VARCHAR(20),
     rg VARCHAR(20),
     emissor VARCHAR(20),
@@ -18,23 +18,21 @@ CREATE TABLE pessoa (
 --Endereço dos locatários
 DROP TABLE IF EXISTS endereco;
 CREATE TABLE endereco (
-	  id SERIAL NOT NULL PRIMARY KEY,
-      user_id INTEGER,
-      user_tipo INTEGER,
-	  logradouro VARCHAR(60),
-      complemento VARCHAR(60),
+	id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER,
+    logradouro VARCHAR(60),
+    complemento VARCHAR(60),
     numero VARCHAR(11),
     bairro VARCHAR(60),
     cidade VARCHAR(60),
     cep VARCHAR(20),
     uf VARCHAR(20)    
 );
---Contato dos locatários
+--Contato das pessoas
 DROP TABLE IF EXISTS contato;
 CREATE TABLE contato (
     id SERIAL NOT NULL PRIMARY KEY,
-    user_id INTEGER,
-    user_tipo INTEGER,
+    user_id INTEGER,    
     fixo VARCHAR(15),
     celular VARCHAR(15),
     recado VARCHAR(15),
@@ -94,51 +92,34 @@ CREATE TABLE banco (
 );
 
 DROP TABLE IF EXISTS locador;
-CREATE TABLE locador (
-	  id SERIAL NOT NULL PRIMARY KEY,
-	  nome VARCHAR(60),
-    cpf VARCHAR(20),
-    rg VARCHAR(15),
-    emissor VARCHAR(5),
-    uf VARCHAR(20),
-    sexo VARCHAR(20),
-    nascimento VARCHAR(20),
-    naturalidade VARCHAR(20),
-    pai VARCHAR(60),
-    mae VARCHAR(60),
-    estado VARCHAR(20)
-);
 
 DROP TABLE IF EXISTS imoveis;
 CREATE TABLE imoveis (
-	  id SERIAL NOT NULL PRIMARY KEY,
-	  locador_id INTEGER,
-      iptu  varchar(60)
-      agua varchar(60),
-      luz varchar(60),
-      obs varchar(60)
-
+	id SERIAL NOT NULL PRIMARY KEY,
+	user_id INTEGER,
+    iptu  varchar(60),
+    agua varchar(60),
+    luz varchar(60),
+    obs varchar(60)
 );
 
 DROP TABLE IF EXISTS imoveis_comodo;
 CREATE TABLE imoveis_comodo (
-	  id SERIAL NOT NULL PRIMARY KEY,
-	  imoveis_id INTEGER,
+	id SERIAL NOT NULL PRIMARY KEY,
+	imoveis_id INTEGER,
     comodo_id INTEGER,
     qtd varchar(10)
-
 );
 
 DROP TABLE IF EXISTS comodo;
 CREATE TABLE comodo (
-	  id SERIAL NOT NULL PRIMARY KEY,
-	  comodo VARCHAR(60)      
-
+	id SERIAL NOT NULL PRIMARY KEY,
+	comodo VARCHAR(60)      
 );
 DROP TABLE IF EXISTS contrato;
 CREATE TABLE contrato (
-	  id SERIAL NOT NULL PRIMARY KEY,
-	  locador_id INTEGER,
+	id SERIAL NOT NULL PRIMARY KEY,
+	locador_id INTEGER,
     locatario_id INTEGER,
     imoveis_id INTEGER,
     valor VARCHAR(5),
