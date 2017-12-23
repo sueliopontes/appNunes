@@ -15,7 +15,7 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getAllOcupacoes(req, res, next) {
+function getOcupacoes(req, res, next) {
   db.any('SELECT * FROM ocupacao')
     .then(function (data) {
       res.status(200)
@@ -136,7 +136,7 @@ function removeOcupacao(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllOcupacoes: getAllOcupacoes,
+    getOcupacoes: getOcupacoes,
     getOcupacao: getOcupacao,
     getOcupacaoUser: getOcupacaoUser,
     createOcupacao: createOcupacao,

@@ -14,30 +14,45 @@ var db = pgp(connectionString);
 /////////////////////
 // Query Functions
 /////////////////////
-/*
-function getAllLocatarios(req, res, next) {
-  db.any('SELECT * FROM locatario')
+
+function getPessoas(req, res, next) {
+  db.any('SELECT * FROM pessoa')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all locatário'
+          message: 'Retrieved all pessoas'
         });
     })
     .catch(function (err) {
       return next(err);
     });
 }
-*/
-function getAllLocadors(req, res, next) {
-  db.any('SELECT * FROM locador')
+
+function getLocatarios(req, res, next) {
+  db.any('SELECT * FROM pessoa where user_tipo=1')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all locador'
+          message: 'Retrieved all locatarios'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getLocadores(req, res, next) {
+  db.any('SELECT * FROM pessoa where user_tipo=2')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all locadores'
         });
     })
     .catch(function (err) {
@@ -46,15 +61,15 @@ function getAllLocadors(req, res, next) {
 }
 
 
-function getLocador(req, res, next) {
+function getPessoa(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM locador WHERE id = $1', id)
+  db.one('SELECT * FROM pessoa WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one locador'
+          message: 'Retrieved one pessoa'
         });
     })
     .catch(function (err) {
@@ -62,17 +77,17 @@ function getLocador(req, res, next) {
     });
 }
 
-function createLocador(req, res, next) {
+function createPessoa(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.locador(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
-  'VALUES (${nome}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado})',
+  db.none('INSERT INTO public.pessoa(nome, user_tipo, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
+  'VALUES (${nome},${user_tipo}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado})',
   req.body)
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Inserted one locador'
+          message: 'Inserted one pessoa'
         });
     })
     .catch(function (err) {
@@ -80,14 +95,14 @@ function createLocador(req, res, next) {
     });
 }
 
-function updateLocador(req, res, next) {
-  db.none('UPDATE public.locador SET nome=$1, nascimento=$11,cpf=$2, rg=$3, emissor=$4, uf=$5, sexo=$6, naturalidade=$7, pai=$8, mae=$9, estado=$11 where id=$10',
+function updatePessoa(req, res, next) {
+  db.none('UPDATE public.pessoa SET nome=$1, nascimento=$11,cpf=$2, rg=$3, emissor=$4, uf=$5, sexo=$6, naturalidade=$7, pai=$8, mae=$9, estado=$11 where id=$10',
     [req.body.nome, req.body.cpf, req.body.rg,req.body.emissor,req.body.uf,req.body.sexo, req.body.naturalidade,req.body.pai,req.body.mae, parseInt(req.params.id),req.body.nascimento,req.body.estado])
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Updated locador'
+          message: 'Updated pessoa'
         });
     })
     .catch(function (err) {
@@ -95,15 +110,15 @@ function updateLocador(req, res, next) {
     });
 }
 
-function removeLocador(req, res, next) {
+function removePessoa(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.locador WHERE id = $1', id)
+  db.result('DELETE FROM public.pessoa WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} locador'
+          message: 'Removed ${result.rowCount} pessoa (s)'
         });
       /* jshint ignore:end */
     })
@@ -118,9 +133,11 @@ function removeLocador(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllLocadors: getAllLocadors,
-    getLocador: getLocador,
-    createLocador: createLocador,
-    updateLocador: updateLocador,
-    removeLocador: removeLocador
+    getPessoas: getPessoas,
+    getLocatarios: getlocatarios,
+    getLocadores: getLocadores,
+    getPessoa: getPessoa,
+    createPessoa: createPessoa,
+    updatePessoa: updatePessoa,
+    removePessoa: removePessoa
 };

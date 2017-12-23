@@ -11,7 +11,7 @@ var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc
 var db = pgp(connectionString);
 
 
-function getAllBancos(req, res, next) {
+function getBancos(req, res, next) {
   db.any('SELECT * FROM banco')
     .then(function (data) {
       res.status(200)
@@ -29,22 +29,7 @@ function getAllBancos(req, res, next) {
 
 function getBanco(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM banco WHERE id = $1', id)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved one Banco'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-function getBancoUser(req, res, next) {
-  var id = parseInt(req.params.id);
-  db.any('SELECT * FROM banco WHERE user_id = $1', id)
+  db.one('SELECT * FROM banco WHERE user_id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -77,7 +62,7 @@ function createBanco(req, res, next) {
 }
 
 function updateBanco(req, res, next) {
-  db.none('UPDATE public.banco SET banco_numero=$1, banco_nome=$2, banco_agencia=$3,banco_conta=$4,banco_data_abertura=$5  WHERE id = $6',
+  db.none('UPDATE public.banco SET banco_numero=$1, banco_nome=$2, banco_agencia=$3,banco_conta=$4,banco_data_abertura=$5  WHERE user_id = $6',
     [req.body.banco_numero, req.body.banco_nome, req.body.banco_agencia,req.body.banco_conta,req.body.banco_data_abertura,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -93,7 +78,7 @@ function updateBanco(req, res, next) {
 
 function removeBanco(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.banco WHERE id = $1', id)
+  db.result('DELETE FROM public.banco WHERE user_id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
@@ -107,33 +92,14 @@ function removeBanco(req, res, next) {
       return next(err);
     });
 }
-
-function removeBanco(req, res, next) {
-  var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.banco WHERE id = $1', id)
-    .then(function (result) {
-      /* jshint ignore:start */
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Removed ${result.rowCount} Banco'
-        });
-      /* jshint ignore:end */
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
 
 /////////////
 // Exports
 /////////////
 
 module.exports = {
-    getAllBancos: getAllBancos,
-    getBanco: getBanco,
-    getBancoUser: getBancoUser,
+    getBancos: getBancos,
+    getBanco: getBanco,   
     createBanco: createBanco,
     updateBanco: updateBanco,
     removeBanco: removeBanco

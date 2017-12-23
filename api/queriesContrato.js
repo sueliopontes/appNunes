@@ -10,7 +10,7 @@ var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
 var db = pgp(connectionString);
 
-function getAllContratos(req, res, next) {
+function getContratos(req, res, next) {
   db.any('SELECT * FROM contrato')
     .then(function (data) {
       res.status(200)
@@ -24,8 +24,6 @@ function getAllContratos(req, res, next) {
       return next(err);
     });
 }
-
-
 function getContrato(req, res, next) {
   var id = parseInt(req.params.id);
   db.one('SELECT * FROM contrato WHERE id = $1', id)
@@ -50,7 +48,7 @@ function getContratoLocador(req, res, next) {
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one contrato'
+          message: 'Retrieved all contrato of locador'
         });
     })
     .catch(function (err) {
@@ -65,7 +63,7 @@ function getContratoLocatario(req, res, next) {
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one contrato'
+          message: 'Retrieved all contrato of locatário'
         });
     })
     .catch(function (err) {
@@ -123,33 +121,15 @@ function removeContrato(req, res, next) {
     });
 }
 
-function removeContrato(req, res, next) {
-  var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.contrato WHERE id = $1', id)
-    .then(function (result) {
-      /* jshint ignore:start */
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Removed ${result.rowCount} contrato'
-        });
-      /* jshint ignore:end */
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-
 /////////////
 // Exports
 /////////////
 
 module.exports = {
-    getAllContratos: getAllContratos,
+    getContratos: getContratos,
     getContrato: getContrato,
-    getContratoUser: getContratoLocador,
-    getContratoUser: getContratoLocatario,
+    getContratoLocador: getContratoLocador,
+    getContratoLocatario: getContratoLocatario,
     createContrato: createContrato,
     updateContrato: updateContrato,
     removeContrato: removeContrato

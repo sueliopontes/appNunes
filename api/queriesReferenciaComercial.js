@@ -15,7 +15,7 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getAllRCs(req, res, next) {
+function getRCs(req, res, next) {
   db.any('SELECT * FROM referencia_comercial')
     .then(function (data) {
       res.status(200)
@@ -66,7 +66,7 @@ function createRC(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
   db.none('INSERT INTO public.referencia_comercial(empresa,contato,telefone,user_id)' +
-  'VALUES (${empresa}, ${contato}, ${telefone},${user})',
+  'VALUES (${empresa}, ${contato}, ${telefone},${user_id})',
   req.body)
     .then(function () {
       res.status(200)
@@ -135,7 +135,7 @@ function removeRC(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllRCs: getAllRCs,
+    getRCs: getRCs,
     getRC: getRC,
     getRCUser: getRCUser,
     createRC: createRC,
