@@ -15,44 +15,14 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getPessoas(req, res, next) {
-  db.any('SELECT * FROM pessoa')
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved all pessoas'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
 function getLocatarios(req, res, next) {
-  db.any('SELECT * FROM pessoa where user_tipo=1')
+  db.any('SELECT * FROM locatario')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all locatarios'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-function getLocadores(req, res, next) {
-  db.any('SELECT * FROM pessoa where user_tipo=2')
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved all locadores'
+          message: 'Retrieved all locatário'
         });
     })
     .catch(function (err) {
@@ -61,15 +31,15 @@ function getLocadores(req, res, next) {
 }
 
 
-function getPessoa(req, res, next) {
+function getLocatario(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM pessoa WHERE id = $1', id)
+  db.one('SELECT * FROM locatario WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one pessoa'
+          message: 'Retrieved one locarario'
         });
     })
     .catch(function (err) {
@@ -77,18 +47,36 @@ function getPessoa(req, res, next) {
     });
 }
 
-function createPessoa(req, res, next) {
+function createLocatario(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.one('INSERT INTO public.pessoa(nome, user_tipo, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
-  'VALUES (${nome},${user_tipo}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado})RETURNING id;',
+  db.one('INSERT INTO public.locatario(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
+  'VALUES (${nome}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado}) RETURNING id;',
+  req.body)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          data:data,
+          status: 'success',
+          message: 'Inserted one locatario'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+//Método original para insert funcionando sem retorno de id
+function createLocatario_bkp(req, res, next) {
+  req.body.launched = parseInt(req.body.launched);
+
+  db.none('INSERT INTO public.locatario(nome, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
+  'VALUES (${nome}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado})',
   req.body)
     .then(function () {
       res.status(200)
         .json({
-          data:dta,
           status: 'success',
-          message: 'Inserted one pessoa'
+          message: 'Inserted one locatario'
         });
     })
     .catch(function (err) {
@@ -96,14 +84,14 @@ function createPessoa(req, res, next) {
     });
 }
 
-function updatePessoa(req, res, next) {
-  db.none('UPDATE public.pessoa SET nome=$1, nascimento=$11,cpf=$2, rg=$3, emissor=$4, uf=$5, sexo=$6, naturalidade=$7, pai=$8, mae=$9, estado=$11 where id=$10',
+function updateLocatario(req, res, next) {
+  db.none('UPDATE public.locatario SET nome=$1, nascimento=$11,cpf=$2, rg=$3, emissor=$4, uf=$5, sexo=$6, naturalidade=$7, pai=$8, mae=$9, estado=$11 where id=$10',
     [req.body.nome, req.body.cpf, req.body.rg,req.body.emissor,req.body.uf,req.body.sexo, req.body.naturalidade,req.body.pai,req.body.mae, parseInt(req.params.id),req.body.nascimento,req.body.estado])
     .then(function () {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Updated pessoa'
+          message: 'Updated locatario'
         });
     })
     .catch(function (err) {
@@ -111,15 +99,15 @@ function updatePessoa(req, res, next) {
     });
 }
 
-function removePessoa(req, res, next) {
+function removeLocatario(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.pessoa WHERE id = $1', id)
+  db.result('DELETE FROM public.locatario WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
         .json({
           status: 'success',
-          message: 'Removed ${result.rowCount} pessoa (s)'
+          message: 'Removed ${result.rowCount} locarario'
         });
       /* jshint ignore:end */
     })
@@ -134,11 +122,9 @@ function removePessoa(req, res, next) {
 /////////////
 
 module.exports = {
-    getPessoas: getPessoas,
-    getLocatarios: getlocatarios,
-    getLocadores: getLocadores,
-    getPessoa: getPessoa,
-    createPessoa: createPessoa,
-    updatePessoa: updatePessoa,
-    removePessoa: removePessoa
+    getLocatarios: getLocatarios,
+    getLocatario: getLocatario,
+    createLocatario: createLocatario,
+    updateLocatario: updateLocatario,
+    removeLocatario: removeLocatario
 };
