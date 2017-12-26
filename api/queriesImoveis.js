@@ -25,7 +25,7 @@ function getImoveis(req, res, next) {
     });
 }
 
-function getAllImoveisFull(req, res, next) {
+function getImoveisFull(req, res, next) {
   //db.any('SELECT imoveis.id,endereco3.bairro,endereco3.logradouro,locador.nome FROM imoveis,endereco3,locador where imoveis.locador_id = locador.id and imoveis.id=endereco3.user_id')
   //db.any('select imoveis.id,endereco3.bairro,endereco3.logradouro,locador.nome from imoveis,endereco3,locador where imoveis.id=endereco3.user_id and imoveis.locador_id=locador_id')
   db.any('select i.id,e.bairro,e.logradouro,l.nome from imoveis i LEFT OUTER JOIN endereco3 e on i.id=e.user_id inner join locador l on i.locador_id=l.id')
@@ -113,9 +113,9 @@ function removeImovel(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllImoveis: getAllImoveis,
+    getImoveis: getImoveis,
     getImovel: getImovel,
-    getAllImoveisFull: getAllImoveisFull,
+    getImoveisFull: getImoveisFull,
     createImovel: createImovel,
     updateImovel: updateImovel,
     removeImovel: removeImovel

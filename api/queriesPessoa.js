@@ -135,7 +135,7 @@ function removePessoa(req, res, next) {
 
 module.exports = {
     getPessoas: getPessoas,
-    getLocatarios: getlocatarios,
+    getLocatarios: getLocatarios,
     getLocadores: getLocadores,
     getPessoa: getPessoa,
     createPessoa: createPessoa,
