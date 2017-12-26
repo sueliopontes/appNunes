@@ -106,7 +106,7 @@ function removeEndereco(req, res, next) {
 /////////////
 
 module.exports = {
-    getEnderecos: getAEnderecos,
+    getEnderecos: getEnderecos,
     getEndereco: getEndereco,    
     createEndereco: createEndereco,
     updateEndereco: updateEndereco,

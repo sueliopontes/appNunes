@@ -14,7 +14,7 @@ var db = pgp(connectionString);
 // Query Functions
 /////////////////////
 
-function getAllRPs(req, res, next) {
+function getRPs(req, res, next) {
   db.any('SELECT * FROM referencia_pessoal')
     .then(function (data) {
       res.status(200)
@@ -134,7 +134,7 @@ function removeRP(req, res, next) {
 /////////////
 
 module.exports = {
-    getAllRPs: getAllRPs,
+    getRPs: getRPs,
     getRP: getRP,
     getRPUser: getRPUser,
     createRP: createRP,
