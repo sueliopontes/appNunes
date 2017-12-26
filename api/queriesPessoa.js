@@ -83,10 +83,10 @@ function createPessoa(req, res, next) {
   db.one('INSERT INTO public.pessoa(nome, user_tipo, nascimento,cpf, rg, emissor, uf, sexo, naturalidade, pai, mae, estado)' +
   'VALUES (${nome},${user_tipo}, ${nascimento}, ${cpf}, ${rg}, ${emissor}, ${uf}, ${sexo}, ${naturalidade}, ${pai}, ${mae},${estado})RETURNING id;',
   req.body)
-    .then(function () {
+    .then(function (data) {
       res.status(200)
         .json({
-          data:dta,
+          data:data,
           status: 'success',
           message: 'Inserted one pessoa'
         });
