@@ -19,12 +19,12 @@ router.get('/', function(req, res, next) {
 var db1 = require('./queriesPessoa');
 
 router.get('/api/pessoa', db1.getPessoas);
-//router.get('/api/pessoa/:id', db1.getPessoa);
-//router.get('/api/locatario', db1.getLocatarios);
-//router.get('/api/locador', db1.getLocadores);
-//router.post('/api/pessoa', db1.createPessoa);
-//router.put('/api/pessoa/:id', db1.updatePessoa);
-//router.delete('/api/pessoa/:id', db1.removePessoa);
+router.get('/api/pessoa/:id', db1.getPessoa);
+router.get('/api/locatarios', db1.getLocatarios);
+router.get('/api/locadores', db1.getLocadores);
+router.post('/api/pessoa', db1.createPessoa);
+router.put('/api/pessoa/:id', db1.updatePessoa);
+router.delete('/api/pessoa/:id', db1.removePessoa);
 
 /*
 var db2 = require('./queriesEndereco');
