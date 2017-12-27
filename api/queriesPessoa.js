@@ -16,7 +16,7 @@ var db = pgp(connectionString);
 /////////////////////
 
 function getPessoas(req, res, next) {
-  db.any('selecr * from pessoa')
+  db.any('select * from pessoa')
     .then(function (data) {
       res.status(200)
         .json({
