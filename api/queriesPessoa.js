@@ -63,7 +63,7 @@ function getLocadores(req, res, next) {
 
 function getPessoa(req, res, next) {
   var id = parseInt(req.params.id);
-  db.any('SELECT * FROM pessoa WHERE id = $id', id)
+  db.one('SELECT * FROM pessoa WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
