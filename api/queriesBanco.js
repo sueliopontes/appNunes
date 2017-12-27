@@ -86,12 +86,13 @@ function removeBanco(req, res, next) {
           status: 'success',
           message: 'Removed ${result.rowCount} Banco'
         });
-      /* jshint ignore:end */
+      /* jshint ignore:end */  
     })
     .catch(function (err) {
       return next(err);
     });
 }
+
 
 /////////////
 // Exports

@@ -16,7 +16,7 @@ var db = pgp(connectionString);
 /////////////////////
 
 function getPessoas(req, res, next) {
-  db.any('SELECT * FROM pessoa')
+  db.any('selecr * from pessoa')
     .then(function (data) {
       res.status(200)
         .json({
@@ -29,9 +29,9 @@ function getPessoas(req, res, next) {
       return next(err);
     });
 }
-
+/*
 function getLocatarios(req, res, next) {
-  db.any('SELECT * FROM pessoa where user_tipo=1')
+  db.any('SELECT * FROM public.pessoa where user_tipo=1')
     .then(function (data) {
       res.status(200)
         .json({
@@ -46,7 +46,7 @@ function getLocatarios(req, res, next) {
 }
 
 function getLocadores(req, res, next) {
-  db.any('SELECT * FROM pessoa where user_tipo=2')
+  db.any('SELECT * FROM public.pessoa where user_tipo=2')
     .then(function (data) {
       res.status(200)
         .json({
@@ -63,7 +63,7 @@ function getLocadores(req, res, next) {
 
 function getPessoa(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM pessoa WHERE id = $1', id)
+  db.any('SELECT * FROM pessoa WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -115,30 +115,30 @@ function removePessoa(req, res, next) {
   var id = parseInt(req.params.id);
   db.result('DELETE FROM public.pessoa WHERE id = $1', id)
     .then(function (result) {
-      /* jshint ignore:start */
+      /* jshint ignore:start */ /*
       res.status(200)
         .json({
           status: 'success',
           message: 'Removed ${result.rowCount} pessoa (s)'
         });
-      /* jshint ignore:end */
+      /* jshint ignore:end */ /*
     })
     .catch(function (err) {
       return next(err);
     });
 }
-
+*/
 
 /////////////
 // Exports
 /////////////
 
 module.exports = {
-    getPessoas: getPessoas,
-    getLocatarios: getLocatarios,
-    getLocadores: getLocadores,
-    getPessoa: getPessoa,
-    createPessoa: createPessoa,
-    updatePessoa: updatePessoa,
-    removePessoa: removePessoa
+    getPessoas: getPessoas
+   // getLocatarios: getLocatarios,
+   // getLocadores: getLocadores,
+   // getPessoa: getPessoa,
+   // createPessoa: createPessoa,
+   // updatePessoa: updatePessoa,
+   // removePessoa: removePessoa
 };

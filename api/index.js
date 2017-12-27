@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.status(200)
       .json({
-        status: 'success',
+        status: 'Ok!! Servidor Ativo',
         message: 'Live long and prosper!'
       });
 });
@@ -19,14 +19,14 @@ router.get('/', function(req, res, next) {
 var db1 = require('./queriesPessoa');
 
 router.get('/api/pessoa', db1.getPessoas);
-router.get('/api/pessoa/:id', db1.getPessoa);
-router.get('/api/locatario', db1.getLocatarios);
-router.get('/api/locador', db1.getLocadores);
-router.post('/api/pessoa', db1.createPessoa);
-router.put('/api/pessoa/:id', db1.updatePessoa);
-router.delete('/api/pessoa/:id', db1.removePessoa);
+//router.get('/api/pessoa/:id', db1.getPessoa);
+//router.get('/api/locatario', db1.getLocatarios);
+//router.get('/api/locador', db1.getLocadores);
+//router.post('/api/pessoa', db1.createPessoa);
+//router.put('/api/pessoa/:id', db1.updatePessoa);
+//router.delete('/api/pessoa/:id', db1.removePessoa);
 
-
+/*
 var db2 = require('./queriesEndereco');
 
 router.get('/api/endereco', db2.getEnderecos);
@@ -102,5 +102,5 @@ router.get('/api/contrato/:id', db11.getContrato);
 router.post('/api/contrato', db11.createContrato);
 router.put('/api/contrato/:id', db11.updateContrato);
 router.delete('/api/contrato/:id', db11.removeContrato);
-
+*/
 module.exports = router;

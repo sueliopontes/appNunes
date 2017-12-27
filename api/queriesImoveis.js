@@ -28,7 +28,7 @@ function getImoveis(req, res, next) {
 function getImoveisFull(req, res, next) {
   //db.any('SELECT imoveis.id,endereco3.bairro,endereco3.logradouro,locador.nome FROM imoveis,endereco3,locador where imoveis.locador_id = locador.id and imoveis.id=endereco3.user_id')
   //db.any('select imoveis.id,endereco3.bairro,endereco3.logradouro,locador.nome from imoveis,endereco3,locador where imoveis.id=endereco3.user_id and imoveis.locador_id=locador_id')
-  db.any('select i.id,e.bairro,e.logradouro,l.nome from imoveis i LEFT OUTER JOIN endereco3 e on i.id=e.user_id inner join locador l on i.locador_id=l.id')
+  db.any('select i.id,e.bairro,e.logradouro,l.nome from imoveis i LEFT OUTER JOIN endereco e on i.id=e.user_id inner join pessoa l on i.pessoa_id=l.id')
     .then(function (data) {
       res.status(200)
         .json({
@@ -45,7 +45,7 @@ function getImoveisFull(req, res, next) {
 
 function getImovel(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM imoveis WHERE id = $1', id)
+  db.any('SELECT * FROM imoveis WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
