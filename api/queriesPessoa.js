@@ -31,7 +31,7 @@ function getPessoas(req, res, next) {
 }
 
 function getLocatarios(req, res, next) {
-  db.any('SELECT * FROM public.pessoa where user_tipo =$1', 1)
+  db.any('SELECT * FROM public.pessoa where user_tipo =$1', parseInt(1))
     .then(function (data) {
       res.status(200)
         .json({
@@ -46,7 +46,7 @@ function getLocatarios(req, res, next) {
 }
 
 function getLocadores(req, res, next) {
-  db.any('SELECT * FROM public.pessoa where user_tipo = $1',2)
+  db.any('SELECT * FROM public.pessoa where user_tipo = $1',[2])
     .then(function (data) {
       res.status(200)
         .json({
