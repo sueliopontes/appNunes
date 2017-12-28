@@ -20,8 +20,8 @@ var db1 = require('./queriesPessoa');
 
 router.get('/api/pessoa', db1.getPessoas);
 router.get('/api/pessoa/:id', db1.getPessoa);
-router.get('/api/locatarios', db1.getLocatarios);
-router.get('/api/locadores', db1.getLocadores);
+router.get('/api/pessoa/locatarios', db1.getLocatarios);
+router.get('/api/pessoa/locadores', db1.getLocadores);
 router.post('/api/pessoa', db1.createPessoa);
 router.put('/api/pessoa/:id', db1.updatePessoa);
 router.delete('/api/pessoa/:id', db1.removePessoa);
