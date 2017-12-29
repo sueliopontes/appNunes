@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-
 // http://localhost:3000/
 router.get('/', function(req, res, next) {
     res.status(200)
       .json({
         status: 'Ok!! Servidor Ativo',
-        message: 'Live long and prosper!'
+        message: 'Live long and prosper!!!'
       });
 });
 
@@ -20,13 +19,12 @@ var db1 = require('./queriesPessoa');
 
 router.get('/api/pessoa', db1.getPessoas);
 router.get('/api/pessoa/:id', db1.getPessoa);
-router.get('/api/pessoa/locatarios', db1.getLocatarios);
-router.get('/api/pessoa/locadores', db1.getLocadores);
+router.get('/api/locatarios', db1.getLocatarios);
+router.get('/api/locadores', db1.getLocadores);
 router.post('/api/pessoa', db1.createPessoa);
 router.put('/api/pessoa/:id', db1.updatePessoa);
 router.delete('/api/pessoa/:id', db1.removePessoa);
 
-/*
 var db2 = require('./queriesEndereco');
 
 router.get('/api/endereco', db2.getEnderecos);
@@ -102,5 +100,5 @@ router.get('/api/contrato/:id', db11.getContrato);
 router.post('/api/contrato', db11.createContrato);
 router.put('/api/contrato/:id', db11.updateContrato);
 router.delete('/api/contrato/:id', db11.removeContrato);
-*/
+
 module.exports = router;

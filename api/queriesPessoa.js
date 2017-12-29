@@ -6,8 +6,8 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-//var connectionString = 'postgres://localhost:5432';
-var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
+var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
+//var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
 var db = pgp(connectionString);
 
 
@@ -31,14 +31,13 @@ function getPessoas(req, res, next) {
 }
 
 function getLocatarios(req, res, next) {
-  var id = parseInt(1);
-  db.any("SELECT * FROM public.pessoa where user_tipo = '1'")
+  db.any('select * from pessoa where user_tipo=1')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all locatarios'
+          message: 'Retrieved all locatários'
         });
     })
     .catch(function (err) {
@@ -47,8 +46,7 @@ function getLocatarios(req, res, next) {
 }
 
 function getLocadores(req, res, next) {
-  var id = parseInt(2);
-  db.any("SELECT * FROM public.pessoa where user_tipo = '2'")
+  db.any('select * from pessoa where user_tipo=2')
     .then(function (data) {
       res.status(200)
         .json({
@@ -61,7 +59,6 @@ function getLocadores(req, res, next) {
       return next(err);
     });
 }
-
 
 function getPessoa(req, res, next) {
   var id = parseInt(req.params.id);
