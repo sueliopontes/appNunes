@@ -26,7 +26,7 @@ function getContratos(req, res, next) {
 }
 function getContrato(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM contrato WHERE id = $1', id)
+  db.any('SELECT * FROM contrato WHERE id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({

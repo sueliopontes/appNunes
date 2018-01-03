@@ -6,8 +6,8 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
-//var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
+//var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
+var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
 var db = pgp(connectionString);
 
 function getConjuges(req, res, next) {
@@ -27,7 +27,23 @@ function getConjuges(req, res, next) {
 
 function getConjuge(req, res, next) {
   var id = parseInt(req.params.id);
-  db.one('SELECT * FROM conjuge WHERE user_id = $1', id)
+  db.any('SELECT * FROM conjuge WHERE id = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one conjuge'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getConjugesUser(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.any('SELECT * FROM conjuge WHERE user_id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -44,8 +60,8 @@ function getConjuge(req, res, next) {
 function createConjuge(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.conjuge(nome,user_id,cpf,rg,user_id)' +
-  'VALUES (${nome},${user}, ${cpf}, ${rg}, ${user_id})',
+  db.none('INSERT INTO public.conjuge(nome,user_id,cpf,rg)' +
+  'VALUES (${nome},${user_id}, ${cpf}, ${rg})',
   req.body)
     .then(function () {
       res.status(200)
@@ -60,7 +76,7 @@ function createConjuge(req, res, next) {
 }
 
 function updateConjuge(req, res, next) {
-  db.none('UPDATE public.conjuge SET nome=$1, cpf=$2, rg=$3 WHERE user_id = $4',
+  db.none('UPDATE public.conjuge SET nome=$1, cpf=$2, rg=$3 WHERE id = $4',
     [req.body.nome, req.body.cpf, req.body.rg,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
@@ -76,7 +92,7 @@ function updateConjuge(req, res, next) {
 
 function removeConjuge(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.conjuge WHERE user_id = $1', id)
+  db.result('DELETE FROM public.conjuge WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
@@ -99,7 +115,8 @@ function removeConjuge(req, res, next) {
 /////////////
 
 module.exports = {
-    getConjuges: getConjuges,    
+    getConjuges: getConjuges, 
+    getConjugesUser: getConjugesUser,    
     getConjuge: getConjuge,      
     createConjuge: createConjuge,
     updateConjuge: updateConjuge,

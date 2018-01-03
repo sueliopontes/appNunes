@@ -6,8 +6,8 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
-//var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
+//var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
+var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
 var db = pgp(connectionString);
 
 
@@ -30,23 +30,7 @@ function getRCs(req, res, next) {
     });
 }
 
-
-function getRC(req, res, next) {
-  var id = parseInt(req.params.id);
-  db.one('SELECT * FROM referencia_comercial WHERE id = $1', id)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved one RC'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-function getRCUser(req, res, next) {
+function getRCSUser(req, res, next) {
   var id = parseInt(req.params.id);
   db.any('SELECT * FROM referencia_comercial WHERE user_id = $1', id)
     .then(function (data) {
@@ -54,7 +38,23 @@ function getRCUser(req, res, next) {
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved one RC'
+          message: 'Retrieved all RC por user_id'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getRC(req, res, next) {
+  var id = parseInt(req.params.id);
+  db.any('SELECT * FROM referencia_comercial id = $1', id)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved one RC por id'
         });
     })
     .catch(function (err) {
@@ -112,32 +112,14 @@ function removeRC(req, res, next) {
     });
 }
 
-function removeRC(req, res, next) {
-  var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.referencia_comercial WHERE id = $1', id)
-    .then(function (result) {
-      /* jshint ignore:start */
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Removed ${result.rowCount} RC'
-        });
-      /* jshint ignore:end */
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-
 /////////////
 // Exports
 /////////////
 
 module.exports = {
     getRCs: getRCs,
-    getRC: getRC,
-    getRCUser: getRCUser,
+    getRCSUser: getRCSUser,
+    getRC: getRC,    
     createRC: createRC,
     updateRC: updateRC,
     removeRC: removeRC

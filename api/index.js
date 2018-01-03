@@ -53,6 +53,7 @@ router.delete('/api/banco/:id', db4.removeBanco);
 var db5 = require('./queriesReferenciaPessoal');
 
 router.get('/api/rp', db5.getRPs);
+router.get('/api/rps/:id', db5.getRPSUser);
 router.get('/api/rp/:id', db5.getRP);
 router.post('/api/rp', db5.createRP);
 router.put('/api/rp/:id', db5.updateRP);
@@ -61,6 +62,7 @@ router.delete('/api/rp/:id', db5.removeRP);
 var db6 = require('./queriesReferenciaComercial');
 
 router.get('/api/rc', db6.getRCs);
+router.get('/api/rcs/:id', db6.getRCSUser);
 router.get('/api/rc/:id', db6.getRC);
 router.post('/api/rc', db6.createRC);
 router.put('/api/rc/:id', db6.updateRC);
@@ -78,6 +80,7 @@ router.delete('/api/ocupacao/:id', db7.removeOcupacao);
 var db8 = require('./queriesConjuge');
 
 router.get('/api/conjuge', db8.getConjuges);
+router.get('/api/conjuges/:id', db8.getConjugesUser);
 router.get('/api/conjuge/:id', db8.getConjuge);
 router.post('/api/conjuge', db8.createConjuge);
 router.put('/api/conjuge/:id', db8.updateConjuge);

@@ -8,8 +8,8 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
-//var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
+//var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
+var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
 var db = pgp(connectionString);
 
 /////////////////////
@@ -67,8 +67,8 @@ function createEndereco(req, res, next) {
 }
 
 function updateEndereco(req, res, next) {
-  db.none('UPDATE public.endereco SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, uf=$6, complemento=$7 where user_id=$8',
-    [req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.uf,complemento, parseInt(req.params.id)])
+  db.none('UPDATE public.endereco SET logradouro=$1, numero=$2, bairro=$3, cidade=$4, cep=$5, uf=$6, complemento=$7 where id=$8',
+    [req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.uf,req.body.complemento, parseInt(req.params.id)])
     .then(function () {
       res.status(200)
         .json({
@@ -83,7 +83,7 @@ function updateEndereco(req, res, next) {
 
 function removeEndereco(req, res, next) {
   var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.endereco WHERE user_id = $1', id)
+  db.result('DELETE FROM public.endereco WHERE id = $1', id)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)

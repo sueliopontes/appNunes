@@ -6,8 +6,8 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
-//var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
+//var connectionString = 'postgres://postgres:root@localhost:5432/postgres';
+var connectionString = 'postgres://ququfxvhdxxxay:6d63b33a6b0a4f0c088f204affe5cc2771cd793b65701f9d5cdc568b655537e7@ec2-50-19-236-223.compute-1.amazonaws.com:5432/dbcta753qqcblj';
 var db = pgp(connectionString);
 
 
@@ -30,23 +30,7 @@ function getOcupacoes(req, res, next) {
     });
 }
 
-
 function getOcupacao(req, res, next) {
-  var id = parseInt(req.params.id);
-  db.one('SELECT * FROM ocupacao WHERE id = $1', id)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved one Ocupacao'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-function getOcupacaoUser(req, res, next) {
   var id = parseInt(req.params.id);
   db.any('SELECT * FROM ocupacao WHERE user_id = $1', id)
     .then(function (data) {
@@ -67,7 +51,7 @@ function createOcupacao(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
   db.none('INSERT INTO public.ocupacao(empresa, cnpj, contato,endereco,admissao,salario,ocupacao,rendas,user_id)' +
-  'VALUES (${empresa}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas},${user})',
+  'VALUES (${empresa}, ${cnpj}, ${contato}, ${endereco}, ${admissao}, ${salario}, ${ocupacao}, ${rendas},${user_id})',
   req.body)
     .then(function () {
       res.status(200)
@@ -113,32 +97,13 @@ function removeOcupacao(req, res, next) {
     });
 }
 
-function removeOcupacao(req, res, next) {
-  var id = parseInt(req.params.id);
-  db.result('DELETE FROM public.ocupacao WHERE id = $1', id)
-    .then(function (result) {
-      /* jshint ignore:start */
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Removed ${result.rowCount} Ocupacao'
-        });
-      /* jshint ignore:end */
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-
 /////////////
 // Exports
 /////////////
 
 module.exports = {
     getOcupacoes: getOcupacoes,
-    getOcupacao: getOcupacao,
-    getOcupacaoUser: getOcupacaoUser,
+    getOcupacao: getOcupacao,    
     createOcupacao: createOcupacao,
     updateOcupacao: updateOcupacao,
     removeOcupacao: removeOcupacao
