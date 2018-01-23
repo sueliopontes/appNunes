@@ -25,10 +25,11 @@ function getImoveis(req, res, next) {
     });
 }
 
-function getImoveisFull(req, res, next) {
+function getImoveisSlim(req, res, next) {
   //db.any('SELECT imoveis.id,endereco3.bairro,endereco3.logradouro,locador.nome FROM imoveis,endereco3,locador where imoveis.locador_id = locador.id and imoveis.id=endereco3.user_id')
   //db.any('select imoveis.id,endereco3.bairro,endereco3.logradouro,locador.nome from imoveis,endereco3,locador where imoveis.id=endereco3.user_id and imoveis.locador_id=locador_id')
-  db.any('select i.id,e.bairro,e.logradouro,l.nome from imoveis i LEFT OUTER JOIN endereco e on i.id=e.user_id inner join pessoa l on i.pessoa_id=l.id')
+  db.any('select i.id,i.bairro,i.logradouro,i.numero,l.nome from imoveis i LEFT OUTER JOIN pessoa l on i.user_id=l.id')
+
     .then(function (data) {
       res.status(200)
         .json({
@@ -62,7 +63,8 @@ function getImovel(req, res, next) {
 function createImovel(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
 
-  db.none('INSERT INTO public.imoveis(locador_id,iptu,agua,luz,obs)' + 'VALUES (${locador_id},${iptu},${agua},${luz},${obs})', req.body)
+  db.none('INSERT INTO public.imoveis(user_id,iptu,agua,luz,obs,logradouro,numero,bairro,cidade,cep,uf,complemento)' +
+   'VALUES (${user_id},${iptu},${agua},${luz},${obs},${logradouro}, ${numero}, ${bairro},  ${cidade},${cep}, ${uf},${complemento})', req.body)
     .then(function () {
       res.status(200)
         .json({
@@ -76,8 +78,8 @@ function createImovel(req, res, next) {
 }
 
 function updateImovel(req, res, next) {
-  db.none('UPDATE public.imoveis SET locador_id=$1, iptu=$2,agua=$3,luz=$4,obs=$5  where id=$6',
-    [req.body.locador_id,req.body.iptu,req.body.agua,req.body.luz,req.body.obs,req.body.id])
+  db.none('UPDATE public.imoveis SET user_id=$1, iptu=$2,agua=$3,luz=$4,obs=$5,logradouro=$6, numero=$7, bairro=$8, cidade=$9, cep=$10, uf=$11, complemento=$12  where id=$13',
+    [req.body.user_id,req.body.iptu,req.body.agua,req.body.luz,req.body.obs,req.body.logradouro, req.body.numero, req.body.bairro,req.body.cidade,req.body.cep, req.body.uf,req.body.complemento,parseInt(req.params.id)])
     .then(function () {
       res.status(200)
         .json({
@@ -115,7 +117,7 @@ function removeImovel(req, res, next) {
 module.exports = {
     getImoveis: getImoveis,
     getImovel: getImovel,
-    getImoveisFull: getImoveisFull,
+    getImoveisSlim: getImoveisSlim,
     createImovel: createImovel,
     updateImovel: updateImovel,
     removeImovel: removeImovel

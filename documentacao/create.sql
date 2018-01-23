@@ -100,7 +100,14 @@ CREATE TABLE imoveis (
     iptu  varchar(60),
     agua varchar(60),
     luz varchar(60),
-    obs varchar(60)
+    obs varchar(60),
+    logradouro VARCHAR(60),
+    complemento VARCHAR(60),
+    numero VARCHAR(11),
+    bairro VARCHAR(60),
+    cidade VARCHAR(60),
+    cep VARCHAR(20),
+    uf VARCHAR(20)    
 );
 
 DROP TABLE IF EXISTS imoveis_comodo;

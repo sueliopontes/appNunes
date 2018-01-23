@@ -27,7 +27,7 @@ function getConjuges(req, res, next) {
 
 function getConjuge(req, res, next) {
   var id = parseInt(req.params.id);
-  db.any('SELECT * FROM conjuge WHERE id = $1', id)
+  db.any('SELECT * FROM conjuge WHERE user_id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({

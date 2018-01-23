@@ -90,7 +90,7 @@ router.delete('/api/conjuge/:id', db8.removeConjuge);
 var db10 = require('./queriesImoveis');
 
 router.get('/api/imovel', db10.getImoveis);
-router.get('/api/imovelFull', db10.getImoveisFull);
+router.get('/api/imovelSlim', db10.getImoveisSlim);
 router.get('/api/imovel/:id', db10.getImovel);
 router.post('/api/imovel', db10.createImovel);
 router.put('/api/imovel/:id', db10.updateImovel);

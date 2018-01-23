@@ -48,7 +48,7 @@ function getRCSUser(req, res, next) {
 
 function getRC(req, res, next) {
   var id = parseInt(req.params.id);
-  db.any('SELECT * FROM referencia_comercial id = $1', id)
+  db.any('SELECT * FROM referencia_comercial where id = $1', id)
     .then(function (data) {
       res.status(200)
         .json({
@@ -61,6 +61,7 @@ function getRC(req, res, next) {
       return next(err);
     });
 }
+
 
 function createRC(req, res, next) {
   req.body.launched = parseInt(req.body.launched);
